@@ -3,12 +3,18 @@
 
 #include "../Bufor/sourcebufor.h"
 
+#include <list>
+
+typedef std::list< std::string > stringList;
+
 class Parser
 {
 public:
     Parser(SourceBufor* bufor);
 
     Parser& operator >> (std::string& str);
+    Parser& operator >> (stringList& strList);
+
 private:
     SourceBufor*_bufor;
 };
