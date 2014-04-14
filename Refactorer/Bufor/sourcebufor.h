@@ -5,10 +5,10 @@
 
 using namespace std;
 
-class SourceStream
+class SourceBufor
 {
 public:
-    SourceStream(const string &bufor);
+    SourceBufor(const string &bufor);
     char getChar() const;
     char getSourceChar(const bool &skipBlanks = true);
     string getChars(unsigned int size) const;
@@ -20,8 +20,8 @@ public:
     int pos() const;
     void setPos(int pos);
 
-    SourceStream& operator++();
-    SourceStream& operator--();
+    SourceBufor& operator++();
+    SourceBufor& operator--();
 
 
 private:

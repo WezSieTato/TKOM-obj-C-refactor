@@ -16,5 +16,5 @@ TEMPLATE = app
 
 
 SOURCES += tst_bufortest.cpp \
-            ../../Refactorer/Bufor/sourcestream.cpp
+            ../../Refactorer/Bufor/sourcebufor.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"

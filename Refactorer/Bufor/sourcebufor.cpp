@@ -1,18 +1,18 @@
-#include "sourcestream.h"
+#include "sourcebufor.h"
 
-SourceStream::SourceStream(const string &bufor) :
+SourceBufor::SourceBufor(const string &bufor) :
     _bufor(bufor),
     _pos(0)
 {
 
 }
 
-char SourceStream::getChar() const
+char SourceBufor::getChar() const
 {
     return _bufor[_pos];
 }
 
-char SourceStream::getSourceChar(const bool &skipBlanks)
+char SourceBufor::getSourceChar(const bool &skipBlanks)
 {
     char ch = getChar();
     if(skipBlanks){
@@ -45,12 +45,12 @@ char SourceStream::getSourceChar(const bool &skipBlanks)
     return ch;
 }
 
-string SourceStream::getChars(unsigned int size) const
+string SourceBufor::getChars(unsigned int size) const
 {
     return _bufor.substr(_pos, size);
 }
 
-string SourceStream::getSourceChars(unsigned int size, const bool &skipBlanks)
+string SourceBufor::getSourceChars(unsigned int size, const bool &skipBlanks)
 {
     if(!size)
         return string("");
@@ -65,13 +65,13 @@ string SourceStream::getSourceChars(unsigned int size, const bool &skipBlanks)
     return str;
 }
 
-int SourceStream::moveBy(const int &delta)
+int SourceBufor::moveBy(const int &delta)
 {
     _pos += delta;
     return pos();
 }
 
-int SourceStream::moveBySourceChars(const int &delta, const bool &skipBlanks)
+int SourceBufor::moveBySourceChars(const int &delta, const bool &skipBlanks)
 {
     for (int i = 0; i < delta; ++i) {
        getSourceChar(skipBlanks);
@@ -81,23 +81,23 @@ int SourceStream::moveBySourceChars(const int &delta, const bool &skipBlanks)
 }
 
 
-int SourceStream::pos() const
+int SourceBufor::pos() const
 {
     return _pos;
 }
 
-void SourceStream::setPos(int pos)
+void SourceBufor::setPos(int pos)
 {
     _pos = pos;
 }
 
-SourceStream &SourceStream::operator++()
+SourceBufor &SourceBufor::operator++()
 {
     ++_pos;
     return *this;
 }
 
-SourceStream &SourceStream::operator--()
+SourceBufor &SourceBufor::operator--()
 {
     --_pos;
     return *this;

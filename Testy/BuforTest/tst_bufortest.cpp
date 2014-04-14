@@ -2,7 +2,7 @@
 #include <QtTest>
 #include <iostream>
 
-#include "../Refactorer/Bufor/sourcestream.h"
+#include "../Refactorer/Bufor/sourcebufor.h"
 
 using namespace std;
 
@@ -41,7 +41,7 @@ void BuforTest::cleanupTestCase()
 void BuforTest::inkrementacja()
 {
     QFETCH(QString, data);
-    SourceStream stream(data.toStdString());
+    SourceBufor stream(data.toStdString());
     for (int i = 0; i < 5; ++i) {
         QCOMPARE(stream.getChar(), data.toStdString()[i]);
         ++stream;
@@ -69,7 +69,7 @@ void BuforTest::inkrementacja_data()
 void BuforTest::setPos()
 {
     QFETCH(QString, data);
-    SourceStream stream(data.toStdString());
+    SourceBufor stream(data.toStdString());
     string str = data.toStdString();
     for (int i = 0; i < 10; ++++i) {
         stream.setPos(i);
@@ -85,7 +85,7 @@ void BuforTest::setPos_data()
 void BuforTest::getSourceChar()
 {
     QFETCH(QString, data);
-    SourceStream stream(data.toStdString());
+    SourceBufor stream(data.toStdString());
     string results("abcdefghijklmnoprstwz");
     for(unsigned int i = 0; i < results.length() ; ++i){
         QCOMPARE(stream.getSourceChar(), results[i]);
