@@ -5,9 +5,14 @@ CONFIG -= qt
 
 SOURCES += main.cpp \
     Bufor/sourcebufor.cpp \
-    Parser/parser.cpp
+    Parser/parser.cpp \
+    Objects/codeobject.cpp \
+    Objects/variabledeclaration.cpp
 
 HEADERS += \
     Bufor/sourcebufor.h \
-    Parser/parser.h
+    Parser/parser.h \
+    Objects/codeobject.h \
+    Objects/variabledeclaration.h \
+    Objects/codeobjects.h
 

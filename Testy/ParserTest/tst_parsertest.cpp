@@ -2,25 +2,30 @@
 #include <QtTest>
 
 #include "../../Refactorer/Parser/parser.h"
+#include "../../Refactorer/Objects/codeobjects.h"
 
 #define COMPARE_STRING(a, b) QCOMPARE(QString((a).c_str()), QString(b));
 #define CREATE_PARSER( par )     QFETCH(QString, data); \
-SourceBufor bufor(data.toStdString()); \
-Parser par(&bufor);
+    SourceBufor bufor(data.toStdString()); \
+    Parser par(&bufor);
 
 #define NEW_DATA_ROW( a )     QTest::newRow( a ) << QString( a );
 
+using namespace objc;
 
 class ParserTest : public QObject
 {
     Q_OBJECT
 
-public:
 private Q_SLOTS:
     void parseString();
     void parseString_data();
     void parseStringList();
     void parseStringList_data();
+    void parseVariableDeclaration();
+    void parseVariableDeclaration_data();
+    void parsePositioning();
+    void parsePositioning_data();
 };
 
 
@@ -68,6 +73,47 @@ void ParserTest::parseStringList_data()
     QTest::addColumn<QString>("data");
     NEW_DATA_ROW("string, _string, STR1NG");
     NEW_DATA_ROW(" string , _string/**** ssss */ ,STR1NG:");
+}
+
+void ParserTest::parseVariableDeclaration()
+{
+    CREATE_PARSER( par );
+    VariableDeclaration var;
+    par >> var;
+    COMPARE_STRING(var.typeName(), "NSData***");
+    COMPARE_STRING(var.objectName(), "data");
+}
+
+void ParserTest::parseVariableDeclaration_data()
+{
+    QTest::addColumn<QString>("data");
+    NEW_DATA_ROW("NSData*** data");
+    NEW_DATA_ROW("NSData ***data");
+    NEW_DATA_ROW("NSData* * * data");
+    NEW_DATA_ROW("NSData** * data");
+    NEW_DATA_ROW("NSData *** data");
+}
+
+void ParserTest::parsePositioning()
+{
+    CREATE_PARSER(par);
+    VariableDeclaration var;
+    par >> var;
+    QFETCH(int, start);
+    QCOMPARE(var.startPos(), start);
+    QFETCH(int, end);
+    QCOMPARE(var.endPos(), end);
+}
+
+void ParserTest::parsePositioning_data()
+{
+    QTest::addColumn<QString>("data");
+    QTest::addColumn<int>("start");
+    QTest::addColumn<int>("end");
+    QTest::newRow("Bez komentarzy i bialych znakow") << "NSData*** data" << 0 << 14;
+    QTest::newRow("Biale znaki") << "   NSData**  * data" << 3 << 19;
+    QTest::newRow("Komentarze") << "// komentarz1 \n   NSData**/** komentarz 2 */  * data" << 18 << 52;
+
 }
 
 QTEST_APPLESS_MAIN(ParserTest)

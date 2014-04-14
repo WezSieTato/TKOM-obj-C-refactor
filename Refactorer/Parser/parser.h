@@ -2,6 +2,7 @@
 #define PARSER_H
 
 #include "../Bufor/sourcebufor.h"
+#include "../Objects/codeobjects.h"
 
 #include <list>
 
@@ -14,6 +15,7 @@ public:
 
     Parser& operator >> (std::string& str);
     Parser& operator >> (stringList& strList);
+    Parser& operator >> (objc::VariableDeclaration& varDec);
 
 private:
     SourceBufor*_bufor;

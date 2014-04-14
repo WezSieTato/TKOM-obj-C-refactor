@@ -31,3 +31,28 @@ Parser &Parser::operator >>(stringList &strList)
     } while (_bufor->getSourceChar() == ',');
     return *this;
 }
+
+Parser &Parser::operator >>(objc::VariableDeclaration &varDec)
+{
+    _bufor->getSourceChar();
+    varDec.setStartPos(_bufor->pos());
+    string type;
+    *this >> type;
+    unsigned starCounter = 0;
+    while (_bufor->getSourceChar() == '*') {
+       ++starCounter;
+        ++(*_bufor);
+    }
+    string object;
+    *this >> object;
+
+    for (unsigned i = 0; i < starCounter; ++i) {
+       type += '*';
+    }
+
+    varDec.setTypeName(type);
+    varDec.setObjectName(object);
+    varDec.setEndPos(_bufor->pos());
+
+    return *this;
+}
