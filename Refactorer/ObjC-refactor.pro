@@ -4,8 +4,10 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += main.cpp \
-    Bufor/sourcebufor.cpp
+    Bufor/sourcebufor.cpp \
+    Parser/parser.cpp
 
 HEADERS += \
-    Bufor/sourcebufor.h
+    Bufor/sourcebufor.h \
+    Parser/parser.h
 
