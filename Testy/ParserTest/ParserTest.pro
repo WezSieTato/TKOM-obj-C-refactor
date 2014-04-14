@@ -18,6 +18,7 @@ SOURCES += tst_parsertest.cpp \
             ../../Refactorer/Bufor/sourcebufor.cpp \
             ../../Refactorer/Parser/parser.cpp \
     ../../Refactorer/Objects/codeobject.cpp \
+    ../../Refactorer/Objects/propertydeclaration.cpp \
     ../../Refactorer/Objects/variabledeclaration.cpp
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"

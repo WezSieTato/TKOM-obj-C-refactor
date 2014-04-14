@@ -4,6 +4,8 @@
 #include <iostream>
 using namespace std;
 
+typedef std::list< std::string > stringList;
+
 namespace objc {
 
 class CodeObject

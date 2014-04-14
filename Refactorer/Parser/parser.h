@@ -6,7 +6,7 @@
 
 #include <list>
 
-typedef std::list< std::string > stringList;
+
 
 class Parser
 {
@@ -16,6 +16,8 @@ public:
     Parser& operator >> (std::string& str);
     Parser& operator >> (stringList& strList);
     Parser& operator >> (objc::VariableDeclaration& varDec);
+    Parser& operator >> (objc::PropertyDeclaration& proDec);
+
 
 private:
     SourceBufor*_bufor;

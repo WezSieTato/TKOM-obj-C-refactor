@@ -56,3 +56,14 @@ Parser &Parser::operator >>(objc::VariableDeclaration &varDec)
 
     return *this;
 }
+
+Parser &Parser::operator >>(objc::PropertyDeclaration &proDec)
+{
+    proDec.setStartPos(_bufor->pos());
+    _bufor->moveBy(10);
+
+
+    proDec.setEndPos(_bufor->pos());
+
+    return *this;
+}
