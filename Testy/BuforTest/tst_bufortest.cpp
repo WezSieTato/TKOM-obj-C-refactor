@@ -87,7 +87,7 @@ void BuforTest::getSourceChar()
     QFETCH(QString, data);
     SourceStream stream(data.toStdString());
     string results("abcdefghijklmnoprstwz");
-    for(int i = 0; i < results.length() ; ++i){
+    for(unsigned int i = 0; i < results.length() ; ++i){
         QCOMPARE(stream.getSourceChar(), results[i]);
         ++stream;
     }

@@ -4,8 +4,8 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += main.cpp \
-    Refactorer/Bufor/sourcestream.cpp
+    Bufor/sourcestream.cpp
 
 HEADERS += \
-    Refactorer/Bufor/sourcestream.h
+    Bufor/sourcestream.h
 
