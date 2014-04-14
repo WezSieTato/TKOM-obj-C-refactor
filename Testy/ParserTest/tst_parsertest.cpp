@@ -16,27 +16,13 @@ class ParserTest : public QObject
     Q_OBJECT
 
 public:
-    ParserTest();
 private Q_SLOTS:
-    void initTestCase();
-    void cleanupTestCase();
     void parseString();
     void parseString_data();
     void parseStringList();
     void parseStringList_data();
 };
 
-ParserTest::ParserTest()
-{
-}
-
-void ParserTest::initTestCase()
-{
-}
-
-void ParserTest::cleanupTestCase()
-{
-}
 
 void ParserTest::parseString()
 {
