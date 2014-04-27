@@ -9,7 +9,8 @@ SOURCES += main.cpp \
     Objects/codeobject.cpp \
     Objects/variabledeclaration.cpp \
     Objects/propertydeclaration.cpp \
-    Parser/parserexception.cpp
+    Parser/parserexception.cpp \
+    Parser/parserexpectedchar.cpp
 
 HEADERS += \
     Bufor/sourcebufor.h \
@@ -18,5 +19,6 @@ HEADERS += \
     Objects/variabledeclaration.h \
     Objects/codeobjects.h \
     Objects/propertydeclaration.h \
-    Parser/parserexception.h
+    Parser/parserexception.h \
+    Parser/parserexpectedchar.h
 

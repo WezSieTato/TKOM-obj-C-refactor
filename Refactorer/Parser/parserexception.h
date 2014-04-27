@@ -13,7 +13,7 @@ public:
     ParserException(SourceBufor *bufor, int position, string type);
 
 public:
-    const char *what() const throw();
+    virtual const char *what() const throw();
 
     int parsingPosition() const;
     const SourceBufor *parsingBufer() const;
@@ -24,7 +24,8 @@ private:
     const int _parsingPosition;
     const string _parsingType;
 
-    string description;
+protected:
+    string _description;
 };
 
 #endif // PARSEREXCEPTION_H

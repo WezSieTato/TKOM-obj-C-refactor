@@ -11,13 +11,13 @@ ParserException::ParserException(SourceBufor *bufor, int position, string type) 
     std::stringstream stream;
     stream << std::hex << ((int)((size_t)(bufor)));
     std::string result( stream.str() );
-    description += "Blad podczas parsowania: 0x" + result + " na pozycji: "
+    _description += "Blad podczas parsowania: 0x" + result + " na pozycji: "
                 + to_string(position) + " parsowany obiekt: " + type;
 }
 
 const char *ParserException::what() const throw()
 {
-    return description.c_str();
+    return _description.c_str();
 }
 
 int ParserException::parsingPosition() const

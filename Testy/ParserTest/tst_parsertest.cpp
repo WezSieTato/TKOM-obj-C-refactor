@@ -4,7 +4,8 @@
 #include "../../Refactorer/Parser/parser.h"
 #include "../../Refactorer/Objects/codeobjects.h"
 
-#define COMPARE_STRING(a, b) QCOMPARE(QString((a).c_str()), QString(b));
+#define COMPARE_STRING(a, b) QCOMPARE(QString((a).c_str()), QString(b))
+#define COMPARE_CHAR(a, b) QCOMPARE( QChar(a), QChar(b) )
 #define CREATE_PARSER( par )     QFETCH(QString, data); \
     SourceBufor bufor(data.toStdString()); \
     Parser par(&bufor);
@@ -128,10 +129,11 @@ void ParserTest::parsePropertyDeclarationException()
     bool isException = false;
     try{
       par >> propDec;
-    } catch (ParserException pe){
+    } catch (ParserExpectedChar pe){
         isException = true;
         COMPARE_STRING(pe.parsingType(), "PropertyDeclaration");
         QCOMPARE(pe.parsingPosition(), 24);
+        COMPARE_CHAR(pe.expectedChar(), ')');
     }
     QTRUE(isException);
 
