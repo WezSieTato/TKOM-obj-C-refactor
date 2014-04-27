@@ -69,12 +69,16 @@ Parser &Parser::operator >>(objc::PropertyDeclaration &proDec)
         proDec.setAttributes(list);
         if(_bufor->getSourceChar() != ')')
             throw ParserExpectedChar(_bufor, _bufor->pos(), "PropertyDeclaration", ')');
+        ++(*_bufor);
     }
 
    objc::VariableDeclaration varDec;
 
    *this >> varDec;
     proDec.setVariableDec(varDec);
+
+    if(_bufor->getSourceChar() != ';')
+        throw ParserExpectedChar(_bufor, _bufor->pos(), "PropertyDeclaration", ';');
 
     proDec.setEndPos(_bufor->pos());
 

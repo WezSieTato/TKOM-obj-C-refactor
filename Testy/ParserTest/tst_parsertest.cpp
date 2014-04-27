@@ -30,6 +30,8 @@ private Q_SLOTS:
     void parsePositioning();
     void parsePositioning_data();
     void parsePropertyDeclarationException();
+    void parsePropertyDeclarationException_data();
+
 };
 
 
@@ -122,20 +124,31 @@ void ParserTest::parsePositioning_data()
 
 void ParserTest::parsePropertyDeclarationException()
 {
-    string prop = "@property (dos, sd, asd d";
-    SourceBufor bufor(prop);
-    PropertyDeclaration propDec;
-    Parser par(&bufor);
+    CREATE_PARSER(par);
+    QFETCH(int, pos);
+    QFETCH(char, ch);
     bool isException = false;
     try{
-      par >> propDec;
+        PropertyDeclaration propDec;
+        par >> propDec;
     } catch (ParserExpectedChar pe){
         isException = true;
         COMPARE_STRING(pe.parsingType(), "PropertyDeclaration");
-        QCOMPARE(pe.parsingPosition(), 24);
-        COMPARE_CHAR(pe.expectedChar(), ')');
+        QCOMPARE(pe.parsingPosition(), pos);
+        COMPARE_CHAR(pe.expectedChar(), ch);
     }
     QTRUE(isException);
+
+}
+
+void ParserTest::parsePropertyDeclarationException_data()
+{
+    QTest::addColumn<QString>("data");
+    QTest::addColumn<int>("pos");
+    QTest::addColumn<char>("ch");
+
+    QTest::newRow(")") << "@property (dos, sd, asd d" << 24 << ')';
+    QTest::newRow(";") << "@property (dos, sd, asd ) NSData* data d" << 39 << ';';
 
 }
 
