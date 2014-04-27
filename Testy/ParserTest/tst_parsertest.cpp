@@ -11,6 +11,8 @@
 
 #define NEW_DATA_ROW( a )     QTest::newRow( a ) << QString( a );
 
+#define QTRUE( a ) QCOMPARE(a, true)
+
 using namespace objc;
 
 class ParserTest : public QObject
@@ -26,6 +28,7 @@ private Q_SLOTS:
     void parseVariableDeclaration_data();
     void parsePositioning();
     void parsePositioning_data();
+    void parsePropertyDeclarationException();
 };
 
 
@@ -113,6 +116,24 @@ void ParserTest::parsePositioning_data()
     QTest::newRow("Bez komentarzy i bialych znakow") << "NSData*** data" << 0 << 14;
     QTest::newRow("Biale znaki") << "   NSData**  * data" << 3 << 19;
     QTest::newRow("Komentarze") << "// komentarz1 \n   NSData**/** komentarz 2 */  * data" << 18 << 52;
+
+}
+
+void ParserTest::parsePropertyDeclarationException()
+{
+    string prop = "@property (dos, sd, asd d";
+    SourceBufor bufor(prop);
+    PropertyDeclaration propDec;
+    Parser par(&bufor);
+    bool isException = false;
+    try{
+      par >> propDec;
+    } catch (ParserException pe){
+        isException = true;
+        COMPARE_STRING(pe.parsingType(), "PropertyDeclaration");
+        QCOMPARE(pe.parsingPosition(), 24);
+    }
+    QTRUE(isException);
 
 }
 

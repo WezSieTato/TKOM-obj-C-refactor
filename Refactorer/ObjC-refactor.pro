@@ -8,7 +8,8 @@ SOURCES += main.cpp \
     Parser/parser.cpp \
     Objects/codeobject.cpp \
     Objects/variabledeclaration.cpp \
-    Objects/propertydeclaration.cpp
+    Objects/propertydeclaration.cpp \
+    Parser/parserexception.cpp
 
 HEADERS += \
     Bufor/sourcebufor.h \
@@ -16,5 +17,6 @@ HEADERS += \
     Objects/codeobject.h \
     Objects/variabledeclaration.h \
     Objects/codeobjects.h \
-    Objects/propertydeclaration.h
+    Objects/propertydeclaration.h \
+    Parser/parserexception.h
 

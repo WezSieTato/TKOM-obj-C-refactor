@@ -1,5 +1,7 @@
 #include "propertydeclaration.h"
 
+using namespace objc;
+
 PropertyDeclaration::PropertyDeclaration()
 {
 }

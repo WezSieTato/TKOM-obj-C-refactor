@@ -2,6 +2,7 @@
 #define CODEOBJECT_H
 
 #include <iostream>
+#include <list>
 using namespace std;
 
 typedef std::list< std::string > stringList;

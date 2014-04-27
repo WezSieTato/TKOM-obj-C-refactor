@@ -62,6 +62,14 @@ Parser &Parser::operator >>(objc::PropertyDeclaration &proDec)
     proDec.setStartPos(_bufor->pos());
     _bufor->moveBy(10);
 
+    if(_bufor->getSourceChar() == '('){
+        ++(*_bufor);
+        stringList list;
+        *this >> list;
+        proDec.setAttributes(list);
+        if(_bufor->getSourceChar() != ')')
+            throw ParserException(_bufor, _bufor->pos(), "PropertyDeclaration");
+    }
 
     proDec.setEndPos(_bufor->pos());
 
