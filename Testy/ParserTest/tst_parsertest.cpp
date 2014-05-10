@@ -5,7 +5,6 @@
 #include "../../Refactorer/Objects/codeobjects.h"
 
 #define COMPARE_STRING(a, b) QCOMPARE(QString((a).c_str()), QString(b))
-#define COMPARE_CHAR(a, b) QCOMPARE( QChar(a), QChar(b) )
 #define CREATE_PARSER( par )     QFETCH(QString, data); \
     SourceBufor bufor(data.toStdString()); \
     Parser par(&bufor);
@@ -31,9 +30,10 @@ private Q_SLOTS:
     void parsePositioning_data();
     void parsePropertyDeclarationException();
     void parsePropertyDeclarationException_data();
+    void parsePropertyDeclaration();
+    void parsePropertyDeclaration_data();
 
 };
-
 
 void ParserTest::parseString()
 {
@@ -86,7 +86,9 @@ void ParserTest::parseVariableDeclaration()
     CREATE_PARSER( par );
     VariableDeclaration var;
     par >> var;
-    COMPARE_STRING(var.typeName(), "NSData***");
+    COMPARE_STRING(var.type().type(), "NSData");
+    QCOMPARE((int)var.type().starNumber(), 3);
+    QTRUE(var.type().isPointer());
     COMPARE_STRING(var.objectName(), "data");
 }
 
@@ -135,7 +137,7 @@ void ParserTest::parsePropertyDeclarationException()
         isException = true;
         COMPARE_STRING(pe.parsingType(), "PropertyDeclaration");
         QCOMPARE(pe.parsingPosition(), pos);
-        COMPARE_CHAR(pe.expectedChar(), ch);
+        QCOMPARE(pe.expectedChar(), ch);
     }
     QTRUE(isException);
 
@@ -149,6 +151,26 @@ void ParserTest::parsePropertyDeclarationException_data()
 
     QTest::newRow(")") << "@property (dos, sd, asd d" << 24 << ')';
     QTest::newRow(";") << "@property (dos, sd, asd ) NSData* data d" << 39 << ';';
+
+}
+
+void ParserTest::parsePropertyDeclaration()
+{
+    CREATE_PARSER(par);
+    PropertyDeclaration propDec;
+    par >> propDec;
+
+    COMPARE_STRING(propDec.variableDec().objectName(), "data");
+    COMPARE_STRING(propDec.variableDec().type().type(), "NSData");
+    QTRUE(propDec.variableDec().type().isPointer());
+    QCOMPARE(propDec.variableDec().type().starNumber(), 1U);
+
+}
+
+void ParserTest::parsePropertyDeclaration_data()
+{
+    QTest::addColumn<QString>("data");
+    QTest::newRow("") << "@property (nonatomic, readonly, assign) NSData* data;";
 
 }
 

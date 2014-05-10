@@ -2,6 +2,7 @@
 #define VARIABLEDECLARATION_H
 
 #include "codeobject.h"
+#include "variabletype.h"
 
 namespace objc {
 
@@ -10,14 +11,14 @@ class VariableDeclaration: public CodeObject
 public:
     VariableDeclaration();
 
-    string typeName() const;
-    void setTypeName(const string &typeName);
-
     string objectName() const;
     void setObjectName(const string &objectName);
 
+    VariableType type() const;
+    void setType(const VariableType &type);
+
 private:
-    string _typeName;
+    VariableType _type;
     string _objectName;
 };
 
