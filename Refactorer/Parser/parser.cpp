@@ -108,6 +108,7 @@ Parser &Parser::operator >>(objc::PropertyDeclaration &proDec)
 
     if(_bufor->getSourceChar() != ';')
         throw ParserExpectedChar(_bufor, _bufor->pos(), "PropertyDeclaration", ';');
+    (*_bufor)++;
 
     proDec.setEndPos(_bufor->pos());
 
