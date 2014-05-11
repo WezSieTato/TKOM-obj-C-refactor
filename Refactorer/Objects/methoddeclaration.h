@@ -5,10 +5,10 @@
 
 namespace objc {
 
-class MethodHeaderDeclaration : public CodeObject
+class MethodDeclaration : public CodeObject
 {
 public:
-    MethodHeaderDeclaration();
+    MethodDeclaration();
 
     MethodHeader header() const;
     void setHeader(const MethodHeader &header);

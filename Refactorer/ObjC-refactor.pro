@@ -14,7 +14,7 @@ SOURCES += main.cpp \
     Objects/methodheaderpart.cpp \
     Objects/variabletype.cpp \
     Objects/methodheader.cpp \
-    Objects/methodheaderdeclaration.cpp
+    Objects/methoddeclaration.cpp
 
 HEADERS += \
     Bufor/sourcebufor.h \
@@ -28,5 +28,5 @@ HEADERS += \
     Objects/methodheaderpart.h \
     Objects/variabletype.h \
     Objects/methodheader.h \
-    Objects/methodheaderdeclaration.h
+    Objects/methoddeclaration.h
 

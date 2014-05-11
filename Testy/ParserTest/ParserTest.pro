@@ -25,6 +25,6 @@ SOURCES += tst_parsertest.cpp \
     ../../Refactorer/Objects/variabletype.cpp \
     ../../Refactorer/Objects/methodheaderpart.cpp \
     ../../Refactorer/Objects/methodheader.cpp \
-    ../../Refactorer/Objects/methodheaderdeclaration.cpp
+    ../../Refactorer/Objects/methoddeclaration.cpp
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"

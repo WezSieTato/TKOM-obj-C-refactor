@@ -163,12 +163,11 @@ Parser &Parser::operator >>(objc::MethodHeader &methHead)
     } while (_bufor->getSourceChar() != ';' && _bufor->getSourceChar() != '{');
     methHead.setPartsHeaderList(head);
 
-//    methHead.setEndPos((_bufor->pos()));
     setEndPos(methHead);
     return *this;
 }
 
-Parser &Parser::operator >>(objc::MethodHeaderDeclaration &methHead)
+Parser &Parser::operator >>(objc::MethodDeclaration &methHead)
 {
     setStartPos(methHead);
     objc::MethodHeader mh;

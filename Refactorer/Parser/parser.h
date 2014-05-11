@@ -18,7 +18,7 @@ public:
     Parser& operator >> (objc::PropertyDeclaration& proDec);
     Parser& operator >> (objc::MethodHeaderPart& methPart);
     Parser& operator >> (objc::MethodHeader& methHead);
-    Parser& operator >> (objc::MethodHeaderDeclaration& methHead);
+    Parser& operator >> (objc::MethodDeclaration& methHead);
 
 private:
     void setStartPos(objc::CodeObject& object);
