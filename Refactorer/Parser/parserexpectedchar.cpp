@@ -4,7 +4,7 @@ ParserExpectedChar::ParserExpectedChar(SourceBufor *bufor, int position, string 
     ParserException(bufor, position, type),
     _expectedChar(expected)
 {
-    _description += "oczekiwany znak: ";
+    _description += " oczekiwany znak: ";
     _description += expected;
 }
 

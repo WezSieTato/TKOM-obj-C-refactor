@@ -1,4 +1,5 @@
 #include "variabletype.h"
+#include <algorithm>
 
 using namespace objc;
 
@@ -18,16 +19,10 @@ void VariableType::setType(const string &type)
 
 unsigned VariableType::starNumber() const
 {
-    return _starNumber;
+    return std::count(_type.begin(), _type.end(), '*');
 }
-
-void VariableType::setStarNumber(const unsigned &starNumber)
-{
-    _starNumber = starNumber;
-}
-
 
 bool objc::VariableType::isPointer() const
 {
-    return _starNumber;
+    return starNumber();
 }

@@ -14,24 +14,12 @@ void MethodHeaderPart::setMethodName(const string &methodName)
 {
     _methodName = methodName;
 }
-string MethodHeaderPart::methodType() const
+VariableDeclaration MethodHeaderPart::variable() const
 {
-    return _methodType;
+    return _variable;
 }
 
-void MethodHeaderPart::setMethodType(const string &methodType)
+void MethodHeaderPart::setVariable(const VariableDeclaration &variable)
 {
-    _methodType = methodType;
+    _variable = variable;
 }
-string MethodHeaderPart::variableName() const
-{
-    return _variableName;
-}
-
-void MethodHeaderPart::setVariableName(const string &variableName)
-{
-    _variableName = variableName;
-}
-
-
-

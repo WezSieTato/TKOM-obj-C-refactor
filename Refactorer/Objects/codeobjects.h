@@ -3,6 +3,6 @@
 
 #include "variabledeclaration.h"
 #include "propertydeclaration.h"
-#include "methodheaderpart.h"
+#include "methodheaderdeclaration.h"
 
 #endif // CODEOBJECTS_H

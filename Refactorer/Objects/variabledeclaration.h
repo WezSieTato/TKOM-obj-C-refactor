@@ -1,7 +1,6 @@
 #ifndef VARIABLEDECLARATION_H
 #define VARIABLEDECLARATION_H
 
-#include "codeobject.h"
 #include "variabletype.h"
 
 namespace objc {

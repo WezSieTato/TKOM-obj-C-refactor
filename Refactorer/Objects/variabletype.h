@@ -13,13 +13,10 @@ public:
     void setType(const string &type);
 
     unsigned starNumber() const;
-    void setStarNumber(const unsigned &starNumber);
-
     bool isPointer() const;
 
 private:
     string _type;
-    unsigned _starNumber;
 };
 }
 #endif // VARIABLETYPE_H

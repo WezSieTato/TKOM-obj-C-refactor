@@ -34,61 +34,46 @@ Parser &Parser::operator >>(stringList &strList)
 
 Parser &Parser::operator >>(objc::VariableType &type)
 {
-    _bufor->getSourceChar();
-    type.setStartPos(_bufor->pos());
+    setStartPos(type);
     string typeStr;
     *this >> typeStr;
-    type.setType(typeStr);
 
     unsigned starCounter = 0;
     while (_bufor->getSourceChar() == '*') {
        ++starCounter;
         ++(*_bufor);
     }
-    type.setStarNumber(starCounter);
 
-    type.setEndPos(_bufor->pos());
+    for(unsigned i = 0; i < starCounter; ++i){
+        typeStr += '*';
+    }
+
+    type.setType(typeStr);
+
+    setEndPos(type);
 
     return *this;
 }
 
-unsigned Parser::countNextStarts()
-{
-    unsigned starCounter = 0;
-    while (_bufor->getSourceChar() == '*') {
-       ++starCounter;
-        ++(*_bufor);
-    }
-
-    return starCounter;
-}
-
-
 Parser &Parser::operator >>(objc::VariableDeclaration &varDec)
 {
-    _bufor->getSourceChar();
-    varDec.setStartPos(_bufor->pos());
+    setStartPos(varDec);
     objc::VariableType type;
     *this >> type;
     varDec.setType(type);
-//    unsigned starCounter = countNextStarts();
     string object;
     *this >> object;
 
-//    for (unsigned i = 0; i < starCounter; ++i) {
-//       type += '*';
-//    }
-
-//    varDec.setTypeName(type);
     varDec.setObjectName(object);
-    varDec.setEndPos(_bufor->pos());
+
+    setEndPos(varDec);
 
     return *this;
 }
 
 Parser &Parser::operator >>(objc::PropertyDeclaration &proDec)
 {
-    proDec.setStartPos(_bufor->pos());
+    setStartPos(proDec);
     _bufor->moveBy(10);
 
     if(_bufor->getSourceChar() == '('){
@@ -108,25 +93,99 @@ Parser &Parser::operator >>(objc::PropertyDeclaration &proDec)
 
     if(_bufor->getSourceChar() != ';')
         throw ParserExpectedChar(_bufor, _bufor->pos(), "PropertyDeclaration", ';');
-    (*_bufor)++;
+    ++(*_bufor);
 
-    proDec.setEndPos(_bufor->pos());
+    setEndPos(proDec);
 
     return *this;
 }
 
-//Parser &Parser::operator >>(objc::MethodHeaderPart &methPart)
-//{
-//    methPart.setStartPos(_bufor->pos());
+objc::VariableType Parser::methodInType()
+{
+    if(_bufor->getSourceChar() != '(')
+        throw ParserExpectedChar(_bufor, _bufor->pos(), "Type in method", '(');
+    ++(*_bufor);
 
-//    string name;
-//    *this >> name;
-//    methPart.setMethodName(name);
-//    if(_bufor->getSourceChar() != ':')
-//        throw ParserExpectedChar(_bufor, _bufor->pos(), "MethodHeaderPart", ':');
+    objc::VariableType type;
+    *this >> type;
 
-//    ++(*_bufor);
+    if(_bufor->getSourceChar() != ')')
+        throw ParserExpectedChar(_bufor, _bufor->pos(), "Type in method", ')');
+    ++(*_bufor);
 
+    return type;
+}
 
-//    methPart.setEndPos((_bufor->pos()));
-//}
+Parser &Parser::operator >>(objc::MethodHeaderPart &methPart)
+{
+    setStartPos(methPart);
+
+    string name;
+    *this >> name;
+    methPart.setMethodName(name);
+    if(_bufor->getSourceChar() != ':')
+        throw ParserExpectedChar(_bufor, _bufor->pos(), "MethodHeaderPart", ':');
+    ++(*_bufor);
+
+    objc::VariableType type = methodInType();
+
+    objc::VariableDeclaration variable;
+    variable.setType(type);
+    std::string variableName;
+
+    *this >> variableName;
+    variable.setObjectName(variableName);
+
+    setEndPos(methPart);
+
+    return *this;
+}
+
+Parser &Parser::operator >>(objc::MethodHeader &methHead)
+{
+    setStartPos(methHead);
+
+    char typeChar = _bufor->getSourceChar();
+    if(typeChar == '-')
+        methHead.setStatic(false);
+    else if (typeChar == '+')
+        methHead.setStatic(true);
+    else
+        throw ParserException(_bufor, _bufor->pos(), "Oczekiwano methodHeader");
+
+    ++(*_bufor);
+    methHead.setType(methodInType());
+
+    objc::MethodName head;
+    do {
+        objc::MethodHeaderPart part;
+        *this >> part;
+    } while (_bufor->getSourceChar() != ';' && _bufor->getSourceChar() != '{');
+    methHead.setPartsHeaderList(head);
+
+//    methHead.setEndPos((_bufor->pos()));
+    setEndPos(methHead);
+    return *this;
+}
+
+Parser &Parser::operator >>(objc::MethodHeaderDeclaration &methHead)
+{
+    setStartPos(methHead);
+    objc::MethodHeader mh;
+    *this >> mh;
+    methHead.setHeader(mh);
+    ++(*_bufor);
+    setEndPos(methHead);
+    return *this;
+}
+
+void Parser::setStartPos(objc::CodeObject &object)
+{
+    _bufor->getSourceChar();
+    object.setStartPos(_bufor->pos());
+}
+
+void Parser::setEndPos(objc::CodeObject &object)
+{
+    object.setEndPos(_bufor->pos());
+}

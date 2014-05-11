@@ -5,15 +5,7 @@ using namespace objc;
 VariableDeclaration::VariableDeclaration()
 {
 }
-//string VariableDeclaration::typeName() const
-//{
-//    return _typeName;
-//}
 
-//void VariableDeclaration::setTypeName(const string &typeName)
-//{
-//    _typeName = typeName;
-//}
 string VariableDeclaration::objectName() const
 {
     return _objectName;

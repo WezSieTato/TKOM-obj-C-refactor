@@ -2,6 +2,7 @@
 #define METHODHEADERPART_H
 
 #include "codeobject.h"
+#include "variabledeclaration.h"
 
 namespace objc {
 
@@ -13,16 +14,12 @@ public:
     string methodName() const;
     void setMethodName(const string &methodName);
 
-    string methodType() const;
-    void setMethodType(const string &methodType);
-
-    string variableName() const;
-    void setVariableName(const string &variableName);
+    VariableDeclaration variable() const;
+    void setVariable(const VariableDeclaration &variable);
 
 private:
     string _methodName;
-    string _methodType;
-    string _variableName;
+    VariableDeclaration _variable;
 };
 
 }

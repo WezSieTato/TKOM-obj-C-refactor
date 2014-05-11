@@ -12,7 +12,9 @@ SOURCES += main.cpp \
     Parser/parserexception.cpp \
     Parser/parserexpectedchar.cpp \
     Objects/methodheaderpart.cpp \
-    Objects/variabletype.cpp
+    Objects/variabletype.cpp \
+    Objects/methodheader.cpp \
+    Objects/methodheaderdeclaration.cpp
 
 HEADERS += \
     Bufor/sourcebufor.h \
@@ -24,5 +26,7 @@ HEADERS += \
     Parser/parserexception.h \
     Parser/parserexpectedchar.h \
     Objects/methodheaderpart.h \
-    Objects/variabletype.h
+    Objects/variabletype.h \
+    Objects/methodheader.h \
+    Objects/methodheaderdeclaration.h
 

@@ -12,6 +12,7 @@
 #define NEW_DATA_ROW( a )     QTest::newRow( a ) << QString( a );
 
 #define QTRUE( a ) QCOMPARE(a, true)
+#define QFALSE( a ) QCOMPARE(a, false)
 
 using namespace objc;
 
@@ -24,6 +25,8 @@ private Q_SLOTS:
     void parseString_data();
     void parseStringList();
     void parseStringList_data();
+    void parseVariableNotPointer();
+    void parseVariableNotPointer_data();
     void parseVariableDeclaration();
     void parseVariableDeclaration_data();
     void parsePositioning();
@@ -32,6 +35,12 @@ private Q_SLOTS:
     void parsePropertyDeclarationException_data();
     void parsePropertyDeclaration();
     void parsePropertyDeclaration_data();
+    void parseMethodHeaderPart();
+    void parseMethodHeaderPart_data();
+    void parseMethodHeader();
+    void parseMethodHeader_data();
+    void parseMethodHeaderDeclaration();
+    void parseMethodHeaderDeclaration_data();
 
 };
 
@@ -81,12 +90,26 @@ void ParserTest::parseStringList_data()
     NEW_DATA_ROW(" string , _string/**** ssss */ ,STR1NG:");
 }
 
+void ParserTest::parseVariableNotPointer()
+{
+    CREATE_PARSER( par );
+    VariableType var;
+    par >> var;
+    QFALSE( var.isPointer() );
+}
+
+void ParserTest::parseVariableNotPointer_data()
+{
+    QTest::addColumn<QString>("data");
+    NEW_DATA_ROW("int");
+}
+
 void ParserTest::parseVariableDeclaration()
 {
     CREATE_PARSER( par );
     VariableDeclaration var;
     par >> var;
-    COMPARE_STRING(var.type().type(), "NSData");
+    COMPARE_STRING(var.type().type(), "NSData***");
     QCOMPARE((int)var.type().starNumber(), 3);
     QTRUE(var.type().isPointer());
     COMPARE_STRING(var.objectName(), "data");
@@ -161,7 +184,7 @@ void ParserTest::parsePropertyDeclaration()
     par >> propDec;
 
     COMPARE_STRING(propDec.variableDec().objectName(), "data");
-    COMPARE_STRING(propDec.variableDec().type().type(), "NSData");
+    COMPARE_STRING(propDec.variableDec().type().type(), "NSData*");
     QTRUE(propDec.variableDec().type().isPointer());
     QCOMPARE(propDec.variableDec().type().starNumber(), 1U);
 
@@ -170,8 +193,63 @@ void ParserTest::parsePropertyDeclaration()
 void ParserTest::parsePropertyDeclaration_data()
 {
     QTest::addColumn<QString>("data");
-    QTest::newRow("") << "@property (nonatomic, readonly, assign) NSData* data;";
+    QTest::newRow("Z atrybutami") << "@property (nonatomic, readonly, assign) NSData* data;";
+    QTest::newRow("Bez atrybutami") << "@property NSData* data;";
 
+}
+
+void ParserTest::parseMethodHeaderPart()
+{
+    CREATE_PARSER(par);
+    MethodHeaderPart headerPart;
+    par >> headerPart;
+
+    QFETCH(QString, name);
+    QFETCH(int, start);
+    QFETCH(int, end);
+
+    COMPARE_STRING(headerPart.methodName(), name);
+    QCOMPARE(headerPart.startPos(), start);
+    QCOMPARE(headerPart.endPos(), end);
+}
+
+void ParserTest::parseMethodHeaderPart_data()
+{
+    QTest::addColumn<QString>("data");
+    QTest::addColumn<QString>("name");
+    QTest::addColumn<int>("start");
+    QTest::addColumn<int>("end");
+
+    QTest::newRow("") << "metodaTestowa:(NSData*)firstPatametr" << "metodaTestowa" << 0 << 36;
+}
+
+void ParserTest::parseMethodHeader()
+{
+    CREATE_PARSER(par);
+    MethodHeader header;
+    par >> header;
+    QTRUE(header.isStatic());
+    COMPARE_STRING(header.type().type(), "NSData*");
+}
+
+void ParserTest::parseMethodHeader_data()
+{
+    QTest::addColumn<QString>("data");
+    QTest::newRow("") << "+(NSData*)getDataFromURL:(NSURL*)url andObject:(NSObject*)object;";
+}
+
+void ParserTest::parseMethodHeaderDeclaration()
+{
+    CREATE_PARSER(par);
+    MethodHeaderDeclaration header;
+    par >> header;
+    QTRUE(header.header().isStatic());
+    COMPARE_STRING(header.header().type().type(), "NSData*");
+}
+
+void ParserTest::parseMethodHeaderDeclaration_data()
+{
+    parseMethodHeader_data();
 }
 
 QTEST_APPLESS_MAIN(ParserTest)
