@@ -109,7 +109,7 @@ void ParserTest::parseVariableDeclaration()
     CREATE_PARSER( par );
     VariableDeclaration var;
     par >> var;
-    COMPARE_STRING(var.type().type(), "NSData***");
+    COMPARE_STRING(var.type().name(), "NSData***");
     QCOMPARE((int)var.type().starNumber(), 3);
     QTRUE(var.type().isPointer());
     COMPARE_STRING(var.objectName(), "data");
@@ -183,10 +183,10 @@ void ParserTest::parsePropertyDeclaration()
     PropertyDeclaration propDec;
     par >> propDec;
 
-    COMPARE_STRING(propDec.variableDec().objectName(), "data");
-    COMPARE_STRING(propDec.variableDec().type().type(), "NSData*");
-    QTRUE(propDec.variableDec().type().isPointer());
-    QCOMPARE(propDec.variableDec().type().starNumber(), 1U);
+    COMPARE_STRING(propDec.variableDeclaration().objectName(), "data");
+    COMPARE_STRING(propDec.variableDeclaration().type().name(), "NSData*");
+    QTRUE(propDec.variableDeclaration().type().isPointer());
+    QCOMPARE(propDec.variableDeclaration().type().starNumber(), 1U);
 
 }
 
@@ -208,7 +208,7 @@ void ParserTest::parseMethodHeaderPart()
     QFETCH(int, start);
     QFETCH(int, end);
 
-    COMPARE_STRING(headerPart.methodName(), name);
+    COMPARE_STRING(headerPart.name(), name);
     QCOMPARE(headerPart.startPos(), start);
     QCOMPARE(headerPart.endPos(), end);
 }
@@ -229,7 +229,7 @@ void ParserTest::parseMethodHeader()
     MethodHeader header;
     par >> header;
     QTRUE(header.isStatic());
-    COMPARE_STRING(header.type().type(), "NSData*");
+    COMPARE_STRING(header.type().name(), "NSData*");
 }
 
 void ParserTest::parseMethodHeader_data()
@@ -244,7 +244,7 @@ void ParserTest::parseMethodHeaderDeclaration()
     MethodDeclaration header;
     par >> header;
     QTRUE(header.header().isStatic());
-    COMPARE_STRING(header.header().type().type(), "NSData*");
+    COMPARE_STRING(header.header().type().name(), "NSData*");
 }
 
 void ParserTest::parseMethodHeaderDeclaration_data()

@@ -13,8 +13,8 @@ public:
     stringList attributes() const;
     void setAttributes(const stringList &attributes);
 
-    VariableDeclaration variableDec() const;
-    void setVariableDec(const VariableDeclaration &variableDec);
+    VariableDeclaration variableDeclaration() const;
+    void setVariableDeclaration(const VariableDeclaration &variableDeclaration);
 
 private:
     stringList _attributes;

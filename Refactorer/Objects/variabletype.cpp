@@ -7,19 +7,19 @@ VariableType::VariableType()
 {
 }
 
-string VariableType::type() const
+string VariableType::name() const
 {
-    return _type;
+    return _name;
 }
 
-void VariableType::setType(const string &type)
+void VariableType::setName(const string &type)
 {
-    _type = type;
+    _name = type;
 }
 
 unsigned VariableType::starNumber() const
 {
-    return std::count(_type.begin(), _type.end(), '*');
+    return std::count(_name.begin(), _name.end(), '*');
 }
 
 bool objc::VariableType::isPointer() const

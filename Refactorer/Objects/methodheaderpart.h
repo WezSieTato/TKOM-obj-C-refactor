@@ -11,8 +11,8 @@ class MethodHeaderPart : public CodeObject
 public:
     MethodHeaderPart();
 
-    string methodName() const;
-    void setMethodName(const string &methodName);
+    string name() const;
+    void setName(const string &name);
 
     VariableDeclaration variable() const;
     void setVariable(const VariableDeclaration &variable);

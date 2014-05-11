@@ -48,7 +48,7 @@ Parser &Parser::operator >>(objc::VariableType &type)
         typeStr += '*';
     }
 
-    type.setType(typeStr);
+    type.setName(typeStr);
 
     setEndPos(type);
 
@@ -89,7 +89,7 @@ Parser &Parser::operator >>(objc::PropertyDeclaration &proDec)
    objc::VariableDeclaration varDec;
 
    *this >> varDec;
-    proDec.setVariableDec(varDec);
+    proDec.setVariableDeclaration(varDec);
 
     if(_bufor->getSourceChar() != ';')
         throw ParserExpectedChar(_bufor, _bufor->pos(), "PropertyDeclaration", ';');
@@ -122,7 +122,7 @@ Parser &Parser::operator >>(objc::MethodHeaderPart &methPart)
 
     string name;
     *this >> name;
-    methPart.setMethodName(name);
+    methPart.setName(name);
     if(_bufor->getSourceChar() != ':')
         throw ParserExpectedChar(_bufor, _bufor->pos(), "MethodHeaderPart", ':');
     ++(*_bufor);

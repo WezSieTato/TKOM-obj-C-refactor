@@ -5,12 +5,12 @@ using namespace objc;
 MethodHeaderPart::MethodHeaderPart()
 {
 }
-string MethodHeaderPart::methodName() const
+string MethodHeaderPart::name() const
 {
     return _methodName;
 }
 
-void MethodHeaderPart::setMethodName(const string &methodName)
+void MethodHeaderPart::setName(const string &methodName)
 {
     _methodName = methodName;
 }

@@ -9,14 +9,14 @@ class VariableType : public  CodeObject
 public:
     VariableType();
 
-    string type() const;
-    void setType(const string &type);
+    string name() const;
+    void setName(const string &name);
 
     unsigned starNumber() const;
     bool isPointer() const;
 
 private:
-    string _type;
+    string _name;
 };
 }
 #endif // VARIABLETYPE_H

@@ -16,12 +16,12 @@ void PropertyDeclaration::setAttributes(const stringList &attributes)
     _attributes = attributes;
 }
 
-VariableDeclaration PropertyDeclaration::variableDec() const
+VariableDeclaration PropertyDeclaration::variableDeclaration() const
 {
     return _variableDec;
 }
 
-void PropertyDeclaration::setVariableDec(const VariableDeclaration &variableDec)
+void PropertyDeclaration::setVariableDeclaration(const VariableDeclaration &variableDec)
 {
     _variableDec = variableDec;
 }
