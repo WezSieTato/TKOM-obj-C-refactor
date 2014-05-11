@@ -71,6 +71,7 @@ Parser &Parser::operator >>(objc::VariableDeclaration &varDec)
     return *this;
 }
 
+
 Parser &Parser::operator >>(objc::PropertyDeclaration &proDec)
 {
     setStartPos(proDec);
@@ -81,8 +82,7 @@ Parser &Parser::operator >>(objc::PropertyDeclaration &proDec)
         stringList list;
         *this >> list;
         proDec.setAttributes(list);
-        if(_bufor->getSourceChar() != ')')
-            throw ParserExpectedChar(_bufor, _bufor->pos(), "PropertyDeclaration", ')');
+        expectedChar(')', "PropertyDeclaration");
         ++(*_bufor);
     }
 
@@ -91,8 +91,7 @@ Parser &Parser::operator >>(objc::PropertyDeclaration &proDec)
    *this >> varDec;
     proDec.setVariableDeclaration(varDec);
 
-    if(_bufor->getSourceChar() != ';')
-        throw ParserExpectedChar(_bufor, _bufor->pos(), "PropertyDeclaration", ';');
+    expectedChar(';', "PropertyDeclaration");
     ++(*_bufor);
 
     setEndPos(proDec);
@@ -102,19 +101,19 @@ Parser &Parser::operator >>(objc::PropertyDeclaration &proDec)
 
 objc::VariableType Parser::methodInType()
 {
-    if(_bufor->getSourceChar() != '(')
-        throw ParserExpectedChar(_bufor, _bufor->pos(), "Type in method", '(');
+    expectedChar('(', "Type in method");
     ++(*_bufor);
 
     objc::VariableType type;
     *this >> type;
 
-    if(_bufor->getSourceChar() != ')')
-        throw ParserExpectedChar(_bufor, _bufor->pos(), "Type in method", ')');
+    expectedChar(')', "Type in method");
     ++(*_bufor);
 
     return type;
 }
+
+
 
 Parser &Parser::operator >>(objc::MethodHeaderPart &methPart)
 {
@@ -123,8 +122,7 @@ Parser &Parser::operator >>(objc::MethodHeaderPart &methPart)
     string name;
     *this >> name;
     methPart.setName(name);
-    if(_bufor->getSourceChar() != ':')
-        throw ParserExpectedChar(_bufor, _bufor->pos(), "MethodHeaderPart", ':');
+    expectedChar(':', "MethodHeaderPart");
     ++(*_bufor);
 
     objc::VariableType type = methodInType();
@@ -145,13 +143,14 @@ Parser &Parser::operator >>(objc::MethodHeader &methHead)
 {
     setStartPos(methHead);
 
+    expectedChar("-+", "MethodHeader");
     char typeChar = _bufor->getSourceChar();
     if(typeChar == '-')
         methHead.setStatic(false);
-    else if (typeChar == '+')
+    else /*if (typeChar == '+')*/
         methHead.setStatic(true);
-    else
-        throw ParserException(_bufor, _bufor->pos(), "Oczekiwano methodHeader");
+//    else
+//        throw ParserException(_bufor, _bufor->pos(), "Oczekiwano methodHeader");
 
     ++(*_bufor);
     methHead.setType(methodInType());
@@ -178,6 +177,32 @@ Parser &Parser::operator >>(objc::MethodDeclaration &methHead)
     return *this;
 }
 
+Parser &Parser::operator >>(objc::MethodDefinition &method)
+{
+    setStartPos(method);
+    objc::MethodHeader mh;
+    *this >> mh;
+    method.setHeader(mh);
+    expectedChar('{', "MethiodDefinition");
+    ++(*_bufor);
+    _bufor->getSourceChar();
+    unsigned level = 1;
+    std::string body;
+    while ( !(isActualChar('}', false) && level == 1) ){
+        if(isActualChar( '{',false))
+            ++level;
+        else if (isActualChar( '}', false))
+            --level;
+        body += _bufor->getSourceChar(false);
+        ++(*_bufor);
+    }
+    expectedChar('}', "MethiodDefinition");
+
+    method.setBody(body);
+    setEndPos(method);
+    return *this;
+}
+
 void Parser::setStartPos(objc::CodeObject &object)
 {
     _bufor->getSourceChar();
@@ -187,4 +212,32 @@ void Parser::setStartPos(objc::CodeObject &object)
 void Parser::setEndPos(objc::CodeObject &object)
 {
     object.setEndPos(_bufor->pos());
+}
+
+bool Parser::isActualChar(char ch, bool skipBlanks) const
+{
+    return (_bufor->getSourceChar(skipBlanks) == ch);
+}
+
+bool Parser::isActualChar(string chars) const
+{
+    char ch = _bufor->getSourceChar();
+    return (chars.find(ch) == string::npos);
+}
+
+void Parser::expectedChar(char ch, string parsedObject)
+{
+    if(!isActualChar(ch))
+        throw ParserExpectedChar(_bufor, _bufor->pos(), parsedObject, ch);
+}
+
+void Parser::expectedChar(string chars, string parsedObject)
+{
+    if(isActualChar(chars)){
+        std::string msg("Oczekiwano {");
+        msg += chars;
+        msg += " } podczas parsowania ";
+        msg += parsedObject;
+        throw ParserException(_bufor, _bufor->pos(), msg);
+    }
 }

@@ -41,6 +41,8 @@ private Q_SLOTS:
     void parseMethodHeader_data();
     void parseMethodHeaderDeclaration();
     void parseMethodHeaderDeclaration_data();
+    void parseMethodDefinition();
+    void parseMethodDefinition_data();
 
 };
 
@@ -250,6 +252,26 @@ void ParserTest::parseMethodHeaderDeclaration()
 void ParserTest::parseMethodHeaderDeclaration_data()
 {
     parseMethodHeader_data();
+}
+
+void ParserTest::parseMethodDefinition()
+{
+    CREATE_PARSER(par);
+    MethodDefinition method;
+    par >> method;
+    QFETCH(QString, body);
+    COMPARE_STRING(method.body(), body);
+}
+
+void ParserTest::parseMethodDefinition_data()
+{
+    QTest::addColumn<QString>("data");
+    QTest::addColumn<QString>("body");
+
+    QTest::newRow("Bez zagniezdzen") << "+(NSData*)getDataFromURL:(NSURL*)url{ body = siema }"
+                         << "body = siema ";
+    QTest::newRow("Z zagniedzeniami") << "+(NSData*)getDataFromURL:(NSURL*)url{ body = siema  { {;} } }"
+                         << "body = siema  { {;} } ";
 }
 
 QTEST_APPLESS_MAIN(ParserTest)
