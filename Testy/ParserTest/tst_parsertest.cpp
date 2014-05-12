@@ -4,15 +4,13 @@
 #include "../../Refactorer/Parser/parser.h"
 #include "../../Refactorer/Objects/codeobjects.h"
 
-#define COMPARE_STRING(a, b) QCOMPARE(QString((a).c_str()), QString(b))
+#include "../macrostest.h"
+
 #define CREATE_PARSER( par )     QFETCH(QString, data); \
     SourceBufor bufor(data.toStdString()); \
     Parser par(&bufor);
 
 #define NEW_DATA_ROW( a )     QTest::newRow( a ) << QString( a );
-
-#define QTRUE( a ) QCOMPARE(a, true)
-#define QFALSE( a ) QCOMPARE(a, false)
 
 using namespace objc;
 

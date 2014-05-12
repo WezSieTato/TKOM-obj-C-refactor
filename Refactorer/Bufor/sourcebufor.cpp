@@ -1,5 +1,6 @@
 #include "sourcebufor.h"
 
+
 SourceBufor::SourceBufor(const string &bufor) :
     _bufor(bufor),
     _pos(0)
@@ -67,6 +68,8 @@ string SourceBufor::getSourceChars(unsigned int size, const bool &skipBlanks)
 
 int SourceBufor::moveBy(const int &delta)
 {
+    if(_pos + delta > (int)_bufor.length())
+        throw SourceBuforOutOfBoundsException(this, _pos + delta);
     _pos += delta;
     return pos();
 }
@@ -93,12 +96,16 @@ void SourceBufor::setPos(int pos)
 
 SourceBufor &SourceBufor::operator++()
 {
+    if(getChar() == '\0')
+        throw SourceBuforOutOfBoundsException(this, _pos + 1);
     ++_pos;
     return *this;
 }
 
 SourceBufor &SourceBufor::operator--()
 {
+    if(_pos == 0)
+        throw SourceBuforOutOfBoundsException(this, -1);
     --_pos;
     return *this;
 }

@@ -2,6 +2,8 @@
 #define SOURCESTREAM_H
 
 #include <iostream>
+#include "sourcebuforoutofboundsexception.h"
+
 
 using namespace std;
 

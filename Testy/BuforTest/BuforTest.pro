@@ -16,5 +16,9 @@ TEMPLATE = app
 
 
 SOURCES += tst_bufortest.cpp \
-            ../../Refactorer/Bufor/sourcebufor.cpp
+            ../../Refactorer/Bufor/sourcebufor.cpp \
+    ../../Refactorer/Bufor/sourcebuforexception.cpp \
+    ../../Refactorer/Bufor/sourcebuforoutofboundsexception.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
+
+HEADERS +=

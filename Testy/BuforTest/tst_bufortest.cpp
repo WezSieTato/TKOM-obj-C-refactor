@@ -6,6 +6,11 @@
 
 using namespace std;
 
+#include "../macrostest.h"
+
+#define CREATE_BUFOR( a ) QFETCH(QString, data); \
+SourceBufor a(data.toStdString());
+
 class BuforTest : public QObject
 {
     Q_OBJECT
@@ -19,6 +24,12 @@ private Q_SLOTS:
     void cleanupTestCase();
     void inkrementacja();
     void inkrementacja_data();
+    void inkrementacjaException();
+    void inkrementacjaException_data();
+    void dekrementacjaException();
+    void dekrementacjaException_data();
+    void moveByException();
+    void moveByException_data();
     void setPos();
     void setPos_data();
     void getSourceChar();
@@ -40,8 +51,7 @@ void BuforTest::cleanupTestCase()
 
 void BuforTest::inkrementacja()
 {
-    QFETCH(QString, data);
-    SourceBufor stream(data.toStdString());
+    CREATE_BUFOR(stream);
     for (int i = 0; i < 5; ++i) {
         QCOMPARE(stream.getChar(), data.toStdString()[i]);
         ++stream;
@@ -66,10 +76,78 @@ void BuforTest::inkrementacja_data()
     standardData();
 }
 
+void BuforTest::inkrementacjaException()
+{
+    CREATE_BUFOR(stream);
+    bool isException = false;
+    try{
+        while(true){
+            ++stream;
+        }
+    } catch (SourceBuforOutOfBoundsException pe){
+        isException = true;
+        QFETCH(int, pos);
+        QCOMPARE(pe.pos(), pos );
+    }
+    QTRUE(isException);
+}
+
+void BuforTest::inkrementacjaException_data()
+{
+    QTest::addColumn<QString>("data");
+    QTest::addColumn<int>("pos");
+
+    QTest::newRow("0") << "" << 1;
+    QTest::newRow("1") << "1" << 2;
+    QTest::newRow("2") << "//" << 3;
+    QTest::newRow("5") << "/* */" << 6;
+
+}
+
+void BuforTest::dekrementacjaException()
+{
+    CREATE_BUFOR(stream);
+    bool isException = false;
+    try{
+        while(true){
+            --stream;
+        }
+    } catch (SourceBuforOutOfBoundsException pe){
+        isException = true;
+        QCOMPARE(pe.pos(), -1 );
+    }
+    QTRUE(isException);
+}
+
+void BuforTest::dekrementacjaException_data()
+{
+    QTest::addColumn<QString>("data");
+    QTest::newRow("") << "";
+}
+
+void BuforTest::moveByException()
+{
+    CREATE_BUFOR(stream);
+    bool isException = false;
+    try{
+        stream.moveBy(10);
+    } catch (SourceBuforOutOfBoundsException pe){
+        isException = true;
+        QCOMPARE(pe.pos(), 10 );
+    }
+    QTRUE(isException);
+}
+
+void BuforTest::moveByException_data()
+{
+    QTest::addColumn<QString>("data");
+    QTest::newRow("Pusty") << "";
+    QTest::newRow("Nie pusty") << "dsfsd";
+}
+
 void BuforTest::setPos()
 {
-    QFETCH(QString, data);
-    SourceBufor stream(data.toStdString());
+    CREATE_BUFOR(stream);
     string str = data.toStdString();
     for (int i = 0; i < 10; ++++i) {
         stream.setPos(i);
@@ -84,8 +162,7 @@ void BuforTest::setPos_data()
 
 void BuforTest::getSourceChar()
 {
-    QFETCH(QString, data);
-    SourceBufor stream(data.toStdString());
+    CREATE_BUFOR(stream);
     string results("abcdefghijklmnoprstwz");
     for(unsigned int i = 0; i < results.length() ; ++i){
         QCOMPARE(stream.getSourceChar(), results[i]);

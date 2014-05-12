@@ -15,7 +15,9 @@ SOURCES += main.cpp \
     Objects/variabletype.cpp \
     Objects/methodheader.cpp \
     Objects/methoddeclaration.cpp \
-    Objects/methoddefinition.cpp
+    Objects/methoddefinition.cpp \
+    Bufor/sourcebuforexception.cpp \
+    Bufor/sourcebuforoutofboundsexception.cpp
 
 HEADERS += \
     Bufor/sourcebufor.h \
@@ -30,5 +32,7 @@ HEADERS += \
     Objects/variabletype.h \
     Objects/methodheader.h \
     Objects/methoddeclaration.h \
-    Objects/methoddefinition.h
+    Objects/methoddefinition.h \
+    Bufor/sourcebuforexception.h \
+    Bufor/sourcebuforoutofboundsexception.h
 
