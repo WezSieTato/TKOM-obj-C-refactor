@@ -18,7 +18,9 @@ SOURCES += main.cpp \
     Objects/methoddefinition.cpp \
     Bufor/sourcebuforexception.cpp \
     Bufor/sourcebuforoutofboundsexception.cpp \
-    Objects/synthetizedvariable.cpp
+    Parser/parserexpectedstring.cpp \
+    Objects/synthesizedvariable.cpp \
+    Objects/synthesizeblock.cpp
 
 HEADERS += \
     Bufor/sourcebufor.h \
@@ -36,5 +38,7 @@ HEADERS += \
     Objects/methoddefinition.h \
     Bufor/sourcebuforexception.h \
     Bufor/sourcebuforoutofboundsexception.h \
-    Objects/synthetizedvariable.h
+    Parser/parserexpectedstring.h \
+    Objects/synthesizedvariable.h \
+    Objects/synthesizeblock.h
 

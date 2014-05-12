@@ -41,8 +41,10 @@ private Q_SLOTS:
     void parseMethodHeaderDeclaration_data();
     void parseMethodDefinition();
     void parseMethodDefinition_data();
-    void parseSynthetizedVariable();
-    void parseSynthetizedVariable_data();
+    void parseSynthesizedVariable();
+    void parseSynthesizedVariable_data();
+    void parseSynthesizeBlock();
+    void parseSynthesizeBlock_data();
 
 };
 
@@ -281,10 +283,10 @@ void ParserTest::parseMethodDefinition_data()
                                       << "body = siema  { {;} } " << 13 << 74 ;
 }
 
-void ParserTest::parseSynthetizedVariable()
+void ParserTest::parseSynthesizedVariable()
 {
     CREATE_PARSER(par);
-    SynthetizedVariable synth;
+    SynthesizedVariable synth;
     par >> synth;
     QFETCH(QString, property);
     QFETCH(QString, variable);
@@ -292,7 +294,7 @@ void ParserTest::parseSynthetizedVariable()
     COMPARE_STRING(synth.variableName(), variable);
 }
 
-void ParserTest::parseSynthetizedVariable_data()
+void ParserTest::parseSynthesizedVariable_data()
 {
     QTest::addColumn<QString>("data");
     QTest::addColumn<QString>("property");
@@ -301,6 +303,26 @@ void ParserTest::parseSynthetizedVariable_data()
     QTest::newRow("Samo property") << "data" << "data" << "data";
     QTest::newRow("property = variable") << "data = _data" << "data" << "_data";
 
+}
+
+void ParserTest::parseSynthesizeBlock()
+{
+    CREATE_PARSER(par);
+    SynthesizeBlock block;
+    par >> block;
+    QFETCH(int, ilosc);
+    QCOMPARE((unsigned int)block.propertyList().size(), (unsigned int)ilosc);
+
+}
+
+void ParserTest::parseSynthesizeBlock_data()
+{
+    QTest::addColumn<QString>("data");
+    QTest::addColumn<int>("ilosc");
+
+    QTest::newRow("puste") << "@synthesize;" << 0;
+    QTest::newRow("1") << "@synthesize data;" << 1;
+    QTest::newRow("3") << "@synthesize data, date = _date, halo = siema;" << 3;
 }
 
 QTEST_APPLESS_MAIN(ParserTest)

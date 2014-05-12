@@ -5,10 +5,10 @@
 
 namespace objc {
 
-class SynthetizedVariable : public CodeObject
+class SynthesizedVariable : public CodeObject
 {
 public:
-    SynthetizedVariable();
+    SynthesizedVariable();
 
     std::string propertyName() const;
     void setPropertyName(const std::string &propertyName);

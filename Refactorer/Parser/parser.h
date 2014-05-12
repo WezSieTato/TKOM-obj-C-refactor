@@ -5,6 +5,7 @@
 #include "../Objects/codeobjects.h"
 #include <list>
 #include "parserexpectedchar.h"
+#include "parserexpectedstring.h"
 
 class Parser
 {
@@ -20,7 +21,9 @@ public:
     Parser& operator >> (objc::MethodHeader& methHead);
     Parser& operator >> (objc::MethodDeclaration& methHead);
     Parser& operator >> (objc::MethodDefinition& method);
-    Parser& operator >> (objc::SynthetizedVariable& variable);
+    Parser& operator >> (objc::SynthesizedVariable& variable);
+    Parser& operator >> (objc::SynthesizeBlock &block);
+
 
 private:
     void setStartPos(objc::CodeObject& object);
@@ -29,10 +32,11 @@ private:
     objc::VariableType methodInType();
     bool isActualChar(char ch, bool skipBlanks = true) const;
     bool isActualChar(std::string chars) const;
+    bool isActualString(std::string expected) const;
 
     void expectedChar(char ch, std::string parsedObject);
     void expectedChar(std::string chars, std::string parsedObject);
-
+    void expectedString(std::string expected, std::string parsedObject);
 
     SourceBufor*_bufor;
 };

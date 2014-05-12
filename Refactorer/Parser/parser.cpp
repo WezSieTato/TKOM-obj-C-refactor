@@ -73,6 +73,7 @@ Parser &Parser::operator >>(objc::VariableDeclaration &varDec)
 Parser &Parser::operator >>(objc::PropertyDeclaration &proDec)
 {
     setStartPos(proDec);
+    expectedString("@property", "PropertyDeclaration");
     _bufor->moveBy(10);
 
     if(_bufor->getSourceChar() == '('){
@@ -198,7 +199,7 @@ Parser &Parser::operator >>(objc::MethodDefinition &method)
     return *this;
 }
 
-Parser &Parser::operator >>(objc::SynthetizedVariable &variable)
+Parser &Parser::operator >>(objc::SynthesizedVariable &variable)
 {
     setStartPos(variable);
     std::string propName, varName;
@@ -213,6 +214,29 @@ Parser &Parser::operator >>(objc::SynthetizedVariable &variable)
     variable.setPropertyName(propName);
     variable.setVariableName(varName);
     setEndPos(variable);
+    return *this;
+}
+
+Parser &Parser::operator >>(objc::SynthesizeBlock &synBlock)
+{
+    setStartPos(synBlock);
+    expectedString("@synthesize", "SynthesizeBlock");
+    _bufor->moveBy(11);
+
+    if(!isActualChar(';')){
+        objc::SynthesizeList list;
+        do{
+            if(isActualChar(','))
+                ++(*_bufor);
+            objc::SynthesizedVariable variable;
+            *this >> variable;
+            list.push_back(variable);
+        }while(isActualChar(','));
+        synBlock.setPropertyList(list);
+        expectedChar(';',"SynthesizeBlock");
+    }
+    ++(*_bufor);
+    setEndPos(synBlock);
     return *this;
 }
 
@@ -235,7 +259,14 @@ bool Parser::isActualChar(char ch, bool skipBlanks) const
 bool Parser::isActualChar(string chars) const
 {
     char ch = _bufor->getSourceChar();
-    return (chars.find(ch) == string::npos);
+    return (chars.find(ch) != string::npos);
+}
+
+bool Parser::isActualString(string expected) const
+{
+    auto size = expected.length();
+    auto str = _bufor->getChars(size);
+    return str == expected;
 }
 
 void Parser::expectedChar(char ch, string parsedObject)
@@ -246,11 +277,17 @@ void Parser::expectedChar(char ch, string parsedObject)
 
 void Parser::expectedChar(string chars, string parsedObject)
 {
-    if(isActualChar(chars)){
+    if(!isActualChar(chars)){
         std::string msg("Oczekiwano {");
         msg += chars;
-        msg += " } podczas parsowania ";
+        msg += "} podczas parsowania ";
         msg += parsedObject;
         throw ParserException(_bufor, _bufor->pos(), msg);
     }
+}
+
+void Parser::expectedString(string expected, string parsedObject)
+{
+    if(!isActualString(expected))
+        throw ParserExpectedString(_bufor, _bufor->pos(), parsedObject, expected);
 }

@@ -4,6 +4,6 @@
 #include "variabledeclaration.h"
 #include "propertydeclaration.h"
 #include "methoddefinition.h"
-#include "synthetizedvariable.h"
+#include "synthesizeblock.h"
 
 #endif // CODEOBJECTS_H
