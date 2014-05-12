@@ -198,6 +198,24 @@ Parser &Parser::operator >>(objc::MethodDefinition &method)
     return *this;
 }
 
+Parser &Parser::operator >>(objc::SynthetizedVariable &variable)
+{
+    setStartPos(variable);
+    std::string propName, varName;
+    *this >> propName;
+
+    if(isActualChar('=')){
+        ++(*_bufor);
+        *this >> varName;
+    } else
+        varName = propName;
+
+    variable.setPropertyName(propName);
+    variable.setVariableName(varName);
+    setEndPos(variable);
+    return *this;
+}
+
 void Parser::setStartPos(objc::CodeObject &object)
 {
     _bufor->getSourceChar();

@@ -20,6 +20,7 @@ public:
     Parser& operator >> (objc::MethodHeader& methHead);
     Parser& operator >> (objc::MethodDeclaration& methHead);
     Parser& operator >> (objc::MethodDefinition& method);
+    Parser& operator >> (objc::SynthetizedVariable& variable);
 
 private:
     void setStartPos(objc::CodeObject& object);

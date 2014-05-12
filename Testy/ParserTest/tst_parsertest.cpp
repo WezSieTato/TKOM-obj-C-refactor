@@ -41,6 +41,8 @@ private Q_SLOTS:
     void parseMethodHeaderDeclaration_data();
     void parseMethodDefinition();
     void parseMethodDefinition_data();
+    void parseSynthetizedVariable();
+    void parseSynthetizedVariable_data();
 
 };
 
@@ -276,7 +278,29 @@ void ParserTest::parseMethodDefinition_data()
     QTest::newRow("Bez zagniezdzen") << "+(NSData*)getDataFromURL:(NSURL*)url{ body = siema }"
                          << "body = siema " << 0 << 52;
     QTest::newRow("Z zagniedzeniami") << "/** siema **/+(NSData*)getDataFromURL:(NSURL*)url{ body = siema  { {;} } }"
-                         << "body = siema  { {;} } " << 13 << 74 ;
+                                      << "body = siema  { {;} } " << 13 << 74 ;
+}
+
+void ParserTest::parseSynthetizedVariable()
+{
+    CREATE_PARSER(par);
+    SynthetizedVariable synth;
+    par >> synth;
+    QFETCH(QString, property);
+    QFETCH(QString, variable);
+    COMPARE_STRING(synth.propertyName(), property);
+    COMPARE_STRING(synth.variableName(), variable);
+}
+
+void ParserTest::parseSynthetizedVariable_data()
+{
+    QTest::addColumn<QString>("data");
+    QTest::addColumn<QString>("property");
+    QTest::addColumn<QString>("variable");
+
+    QTest::newRow("Samo property") << "data" << "data" << "data";
+    QTest::newRow("property = variable") << "data = _data" << "data" << "_data";
+
 }
 
 QTEST_APPLESS_MAIN(ParserTest)

@@ -28,6 +28,7 @@ SOURCES += tst_parsertest.cpp \
     ../../Refactorer/Objects/methoddeclaration.cpp \
     ../../Refactorer/Objects/methoddefinition.cpp \
     ../../Refactorer/Bufor/sourcebuforexception.cpp \
-    ../../Refactorer/Bufor/sourcebuforoutofboundsexception.cpp
+    ../../Refactorer/Bufor/sourcebuforoutofboundsexception.cpp \
+    ../../Refactorer/Objects/synthetizedvariable.cpp
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"

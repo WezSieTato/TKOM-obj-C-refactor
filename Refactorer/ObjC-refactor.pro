@@ -17,7 +17,8 @@ SOURCES += main.cpp \
     Objects/methoddeclaration.cpp \
     Objects/methoddefinition.cpp \
     Bufor/sourcebuforexception.cpp \
-    Bufor/sourcebuforoutofboundsexception.cpp
+    Bufor/sourcebuforoutofboundsexception.cpp \
+    Objects/synthetizedvariable.cpp
 
 HEADERS += \
     Bufor/sourcebufor.h \
@@ -34,5 +35,6 @@ HEADERS += \
     Objects/methoddeclaration.h \
     Objects/methoddefinition.h \
     Bufor/sourcebuforexception.h \
-    Bufor/sourcebuforoutofboundsexception.h
+    Bufor/sourcebuforoutofboundsexception.h \
+    Objects/synthetizedvariable.h
 
