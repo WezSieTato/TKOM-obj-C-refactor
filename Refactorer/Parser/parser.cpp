@@ -51,7 +51,6 @@ Parser &Parser::operator >>(objc::VariableType &type)
     type.setName(typeStr);
 
     setEndPos(type);
-
     return *this;
 }
 
@@ -67,7 +66,6 @@ Parser &Parser::operator >>(objc::VariableDeclaration &varDec)
     varDec.setObjectName(object);
 
     setEndPos(varDec);
-
     return *this;
 }
 
@@ -95,7 +93,6 @@ Parser &Parser::operator >>(objc::PropertyDeclaration &proDec)
     ++(*_bufor);
 
     setEndPos(proDec);
-
     return *this;
 }
 
@@ -149,8 +146,6 @@ Parser &Parser::operator >>(objc::MethodHeader &methHead)
         methHead.setStatic(false);
     else /*if (typeChar == '+')*/
         methHead.setStatic(true);
-//    else
-//        throw ParserException(_bufor, _bufor->pos(), "Oczekiwano methodHeader");
 
     ++(*_bufor);
     methHead.setType(methodInType());
@@ -197,7 +192,7 @@ Parser &Parser::operator >>(objc::MethodDefinition &method)
         ++(*_bufor);
     }
     expectedChar('}', "MethiodDefinition");
-
+    ++(*_bufor);
     method.setBody(body);
     setEndPos(method);
     return *this;

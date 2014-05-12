@@ -259,17 +259,24 @@ void ParserTest::parseMethodDefinition()
     par >> method;
     QFETCH(QString, body);
     COMPARE_STRING(method.body(), body);
+    QFETCH(int, startPos);
+    QCOMPARE(method.startPos(), startPos);
+    QFETCH(int, endPos);
+    QCOMPARE(method.endPos(), endPos);
 }
 
 void ParserTest::parseMethodDefinition_data()
 {
     QTest::addColumn<QString>("data");
     QTest::addColumn<QString>("body");
+    QTest::addColumn<int>("startPos");
+    QTest::addColumn<int>("endPos");
+
 
     QTest::newRow("Bez zagniezdzen") << "+(NSData*)getDataFromURL:(NSURL*)url{ body = siema }"
-                         << "body = siema ";
-    QTest::newRow("Z zagniedzeniami") << "+(NSData*)getDataFromURL:(NSURL*)url{ body = siema  { {;} } }"
-                         << "body = siema  { {;} } ";
+                         << "body = siema " << 0 << 52;
+    QTest::newRow("Z zagniedzeniami") << "/** siema **/+(NSData*)getDataFromURL:(NSURL*)url{ body = siema  { {;} } }"
+                         << "body = siema  { {;} } " << 13 << 74 ;
 }
 
 QTEST_APPLESS_MAIN(ParserTest)
