@@ -20,7 +20,8 @@ SOURCES += main.cpp \
     Bufor/sourcebuforoutofboundsexception.cpp \
     Parser/parserexpectedstring.cpp \
     Objects/synthesizedvariable.cpp \
-    Objects/synthesizeblock.cpp
+    Objects/synthesizeblock.cpp \
+    Objects/classinterface.cpp
 
 HEADERS += \
     Bufor/sourcebufor.h \
@@ -40,5 +41,6 @@ HEADERS += \
     Bufor/sourcebuforoutofboundsexception.h \
     Parser/parserexpectedstring.h \
     Objects/synthesizedvariable.h \
-    Objects/synthesizeblock.h
+    Objects/synthesizeblock.h \
+    Objects/classinterface.h
 
