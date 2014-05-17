@@ -45,6 +45,8 @@ private Q_SLOTS:
     void parseSynthesizedVariable_data();
     void parseSynthesizeBlock();
     void parseSynthesizeBlock_data();
+    void parseClassInterface();
+    void parseClassInterface_data();
 
 };
 
@@ -146,7 +148,7 @@ void ParserTest::parsePositioning_data()
     QTest::addColumn<int>("start");
     QTest::addColumn<int>("end");
     QTest::newRow("Bez komentarzy i bialych znakow") << "NSData*** data;" << 0 << 15;
-    QTest::newRow("Biale znaki") << "   NSData**  * data;" << 3 << 18;
+    QTest::newRow("Biale znaki") << "   NSData**  * data;" << 3 << 20;
     QTest::newRow("Komentarze") << "// komentarz1 \n   NSData**/** komentarz 2 */  * data;" << 18 << 53;
 
 }
@@ -278,7 +280,7 @@ void ParserTest::parseMethodDefinition_data()
 
 
     QTest::newRow("Bez zagniezdzen") << "+(NSData*)getDataFromURL:(NSURL*)url{ body = siema }"
-                         << "body = siema " << 0 << 52;
+                                     << "body = siema " << 0 << 52;
     QTest::newRow("Z zagniedzeniami") << "/** siema **/+(NSData*)getDataFromURL:(NSURL*)url{ body = siema  { {;} } }"
                                       << "body = siema  { {;} } " << 13 << 74 ;
 }
@@ -323,6 +325,29 @@ void ParserTest::parseSynthesizeBlock_data()
     QTest::newRow("puste") << "@synthesize;" << 0;
     QTest::newRow("1") << "@synthesize data;" << 1;
     QTest::newRow("3") << "@synthesize data, date = _date, halo = siema;" << 3;
+}
+
+void ParserTest::parseClassInterface()
+{
+    CREATE_PARSER(par);
+    ClassInterface classInterface;
+    par >> classInterface;
+    COMPARE_STRING(classInterface.name(), "MyClass");
+    COMPARE_STRING(classInterface.baseClass(), "NSObject");
+}
+
+void ParserTest::parseClassInterface_data()
+{
+    QTest::addColumn<QString>("data");
+    QTest::newRow("Pusta") << "@interface MyClass : NSObject @end";
+    QTest::newRow("Protocols") << "@interface MyClass : NSObject < DataDelegates, TKOMProject > @end";
+    QTest::newRow("{}") << "@interface MyClass : NSObject{} @end";
+    QTest::newRow("property") << "@interface MyClass : NSObject{} @property () NSData* data; @end";
+    QTest::newRow("method") << "@interface MyClass : NSObject +(NSData*)getDataFromURL:(NSURL*)url andObject:(NSObject*)object; @end";
+    QTest::newRow("method i property") << "@interface MyClass : NSObject @property () NSData* data; +(NSData*)getDataFromURL:(NSURL*)url andObject:(NSObject*)object; @end";
+
+
+
 }
 
 QTEST_APPLESS_MAIN(ParserTest)

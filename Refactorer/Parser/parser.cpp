@@ -240,6 +240,65 @@ Parser &Parser::operator >>(objc::SynthesizeBlock &synBlock)
     return *this;
 }
 
+Parser &Parser::operator >>(objc::ClassInterface &classInterface)
+{
+    setStartPos(classInterface);
+    expectedString("@interface", "ClassInterface");
+    _bufor->moveBy(11);
+    std::string className;
+    *this >> className;
+    expectedChar(':', "ClassInterface");
+    ++(*_bufor);
+    std::string baseClass;
+    *this >> baseClass;
+
+    classInterface.setName(className);
+    classInterface.setBaseClass(baseClass);
+
+    if(isActualChar('<')){
+        ++(*_bufor);
+        stringList list;
+        *this >> list;
+        expectedChar('>', "ClassInterface");
+        ++(*_bufor);
+    }
+
+    if(isActualChar('{')){
+        ++(*_bufor);
+        objc::VariableDeclarationList varList;
+        while(!isActualChar('}')){
+            objc::VariableDeclaration varDec;
+            *this >> varDec;
+            varList.push_back(varDec);
+        }
+        classInterface.setVariableDeclarations(varList);
+        expectedChar('}', "ClassInterface");
+        ++(*_bufor);
+    }
+    objc::PropertyDeclarationList propList;
+    objc::MethodDeclarationList methList;
+
+
+    while(!isActualString("@end", true)){
+        expectedChar("@-+", "ClassInterface");
+        if(isActualChar('@')){
+            objc::PropertyDeclaration prop;
+            *this >> prop;
+            propList.push_back(prop);
+        } else {
+            objc::MethodDeclaration meth;
+            *this >> meth;
+            methList.push_back(meth);
+        }
+    }
+    classInterface.setPropertyDeclarations(propList);
+    classInterface.setMethodDeclarations(methList);
+
+    _bufor->moveBy(4);
+    setEndPos(classInterface);
+    return *this;
+}
+
 void Parser::setStartPos(objc::CodeObject &object)
 {
     _bufor->getSourceChar();
@@ -262,8 +321,10 @@ bool Parser::isActualChar(string chars) const
     return (chars.find(ch) != string::npos);
 }
 
-bool Parser::isActualString(string expected) const
+bool Parser::isActualString(string expected, bool skipBlanks) const
 {
+    if(skipBlanks)
+        _bufor->getSourceChar();
     auto size = expected.length();
     auto str = _bufor->getChars(size);
     return str == expected;

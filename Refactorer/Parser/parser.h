@@ -3,7 +3,6 @@
 
 #include "../Bufor/sourcebufor.h"
 #include "../Objects/codeobjects.h"
-#include <list>
 #include "parserexpectedchar.h"
 #include "parserexpectedstring.h"
 
@@ -23,6 +22,8 @@ public:
     Parser& operator >> (objc::MethodDefinition& method);
     Parser& operator >> (objc::SynthesizedVariable& variable);
     Parser& operator >> (objc::SynthesizeBlock &block);
+    Parser& operator >> (objc::ClassInterface &classInterface);
+
 
 
 private:
@@ -32,7 +33,7 @@ private:
     objc::VariableType methodInType();
     bool isActualChar(char ch, bool skipBlanks = true) const;
     bool isActualChar(std::string chars) const;
-    bool isActualString(std::string expected) const;
+    bool isActualString(std::string expected, bool skipBlanks = false) const;
 
     void expectedChar(char ch, std::string parsedObject);
     void expectedChar(std::string chars, std::string parsedObject);
