@@ -49,6 +49,9 @@ private Q_SLOTS:
     void parseClassInterface_data();
     void parseClassImplementation();
     void parseClassImplementation_data();
+    void parseFile();
+    void parseFile_data();
+
 };
 
 void ParserTest::parseString()
@@ -367,6 +370,24 @@ void ParserTest::parseClassImplementation_data()
     QTest::newRow("Synthesize i method") << "@implementation MyClass @synthesize data, tkom = _tkom; +(NSData*)getDataFromURL:(NSURL*)url andObject:(NSObject*)object{} @end";
     QTest::newRow("method") << "@implementation MyClass +(NSData*)getDataFromURL:(NSURL*)url andObject:(NSObject*)object{} @end";
 
+
+}
+
+void ParserTest::parseFile()
+{
+    CREATE_PARSER(par);
+    File file;
+    par >> file;
+    int count = 0;
+    count += file.classImplementations().size() + file.classInterfaces().size();
+    QCOMPARE(count, 1);
+}
+
+void ParserTest::parseFile_data()
+{
+    QTest::addColumn<QString>("data");
+    QTest::newRow("InterFace") << INTERFACE_FILE;
+    QTest::newRow("Implementation") << IMPLEMENTATION_FILE;
 
 }
 

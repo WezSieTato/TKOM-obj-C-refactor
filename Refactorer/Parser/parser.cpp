@@ -329,9 +329,27 @@ Parser &Parser::operator >>(objc::ClassImplementation &classImplementation)
 
 Parser &Parser::operator >>(objc::File &file)
 {
-//    while (_bufor-) {
+    objc::ClassImplementationList implist;
+    objc::ClassInterfaceList intlist;
 
-//    }
+    while (!_bufor->isEnd()) {
+        if(isActualString("@interface", "File")){
+            objc::ClassInterface inter;
+            *this >> inter;
+            intlist.push_back(inter);
+        } else if (isActualString("@implementation", "File")){
+            objc::ClassImplementation inter;
+            *this >> inter;
+            implist.push_back(inter);
+        } else {
+            ++(*_bufor);
+        }
+    }
+
+    file.setClassImplementations(implist);
+    file.setClassInterfaces(intlist);
+
+    return *this;
 }
 
 void Parser::setStartPos(objc::CodeObject &object)

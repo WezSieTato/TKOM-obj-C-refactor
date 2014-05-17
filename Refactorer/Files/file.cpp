@@ -14,14 +14,13 @@ void File::setClassImplementations(const ClassImplementationList &classImplement
 {
     _classImplementations = classImplementations;
 }
-ClassImplementationList File::classInterfaces() const
+ClassInterfaceList File::classInterfaces() const
 {
     return _classInterfaces;
 }
 
-void File::setClassInterfaces(const ClassImplementationList &classInterfaces)
+void File::setClassInterfaces(const ClassInterfaceList &classInterfaces)
 {
     _classInterfaces = classInterfaces;
 }
-
 

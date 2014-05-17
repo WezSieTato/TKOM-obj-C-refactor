@@ -201,8 +201,6 @@ void BuforTest::isEnd_data()
     QTest::newRow("1") << "1" << 1 << false << true ;
     QTest::newRow("12") << "12" << 1 << false << false ;
 
-
-
 }
 
 QTEST_APPLESS_MAIN(BuforTest)

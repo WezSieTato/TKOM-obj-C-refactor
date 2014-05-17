@@ -16,12 +16,13 @@ public:
     ClassImplementationList classImplementations() const;
     void setClassImplementations(const ClassImplementationList &classImplementations);
 
-    ClassImplementationList classInterfaces() const;
-    void setClassInterfaces(const ClassImplementationList &classInterfaces);
+
+    ClassInterfaceList classInterfaces() const;
+    void setClassInterfaces(const ClassInterfaceList &classInterfaces);
 
 private:
     ClassImplementationList _classImplementations;
-    ClassImplementationList _classInterfaces;
+    ClassInterfaceList _classInterfaces;
 };
 
 }
