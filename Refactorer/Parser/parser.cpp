@@ -299,6 +299,34 @@ Parser &Parser::operator >>(objc::ClassInterface &classInterface)
     return *this;
 }
 
+Parser &Parser::operator >>(objc::ClassImplementation &classImplementation)
+{
+    setStartPos(classImplementation);
+
+    expectedString("@implementation", "ClassImplementation");
+    _bufor->moveBy(15);
+    std::string className;
+    *this >> className;
+    classImplementation.setClassName(className);
+    if(isActualString("@synthesize", true)){
+        objc::SynthesizeBlock block;
+        *this >> block;
+        classImplementation.setSynthesizeBlock(block);
+    }
+
+    objc::MethodDefinitionList list;
+    while(!isActualString("@end", true)){
+        objc::MethodDefinition meth;
+        *this >> meth;
+        list.push_back(meth);
+    }
+
+    classImplementation.setMethodDefinitions(list);
+    _bufor->moveBy(4);
+    setEndPos(classImplementation);
+    return *this;
+}
+
 void Parser::setStartPos(objc::CodeObject &object)
 {
     _bufor->getSourceChar();

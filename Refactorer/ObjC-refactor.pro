@@ -22,7 +22,8 @@ SOURCES += main.cpp \
     Objects/synthesizedvariable.cpp \
     Objects/synthesizeblock.cpp \
     Objects/classinterface.cpp \
-    Objects/classpart.cpp
+    Objects/classpart.cpp \
+    Objects/classimplementation.cpp
 
 HEADERS += \
     Bufor/sourcebufor.h \
@@ -44,5 +45,6 @@ HEADERS += \
     Objects/synthesizedvariable.h \
     Objects/synthesizeblock.h \
     Objects/classinterface.h \
-    Objects/classpart.h
+    Objects/classpart.h \
+    Objects/classimplementation.h
 

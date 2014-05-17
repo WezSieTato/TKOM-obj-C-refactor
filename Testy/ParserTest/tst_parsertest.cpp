@@ -47,7 +47,8 @@ private Q_SLOTS:
     void parseSynthesizeBlock_data();
     void parseClassInterface();
     void parseClassInterface_data();
-
+    void parseClassImplementation();
+    void parseClassImplementation_data();
 };
 
 void ParserTest::parseString()
@@ -346,6 +347,26 @@ void ParserTest::parseClassInterface_data()
     QTest::newRow("property") << "@interface MyClass : NSObject{} @property () NSData* data; @end";
     QTest::newRow("method") << "@interface MyClass : NSObject +(NSData*)getDataFromURL:(NSURL*)url andObject:(NSObject*)object; @end";
     QTest::newRow("method i property") << "@interface MyClass : NSObject @property () NSData* data; +(NSData*)getDataFromURL:(NSURL*)url andObject:(NSObject*)object; @end";
+
+}
+
+void ParserTest::parseClassImplementation()
+{
+    CREATE_PARSER(par);
+    ClassImplementation classInterface;
+    par >> classInterface;
+    COMPARE_STRING(classInterface.className(), "MyClass");
+}
+
+void ParserTest::parseClassImplementation_data()
+{
+    QTest::addColumn<QString>("data");
+
+    QTest::newRow("Pusta") << "@implementation MyClass @end";
+    QTest::newRow("Synthesize") << "@implementation MyClass @synthesize data, tkom = _tkom; @end";
+    QTest::newRow("Synthesize i method") << "@implementation MyClass @synthesize data, tkom = _tkom; +(NSData*)getDataFromURL:(NSURL*)url andObject:(NSObject*)object{} @end";
+    QTest::newRow("method") << "@implementation MyClass +(NSData*)getDataFromURL:(NSURL*)url andObject:(NSObject*)object{} @end";
+
 
 }
 

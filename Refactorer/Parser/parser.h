@@ -23,6 +23,7 @@ public:
     Parser& operator >> (objc::SynthesizedVariable& variable);
     Parser& operator >> (objc::SynthesizeBlock &block);
     Parser& operator >> (objc::ClassInterface &classInterface);
+    Parser& operator >> (objc::ClassImplementation &classImplementation);
 
 
 

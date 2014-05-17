@@ -2,7 +2,6 @@
 #define CODEOBJECTS_H
 
 #include "classinterface.h"
-#include "methoddefinition.h"
-#include "synthesizeblock.h"
+#include "classimplementation.h"
 
 #endif // CODEOBJECTS_H
