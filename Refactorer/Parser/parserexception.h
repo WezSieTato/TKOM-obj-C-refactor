@@ -11,7 +11,7 @@ class ParserException : public exception
 {
 public:
     ParserException(SourceBufor *bufor, int position, string type);
-
+    virtual ~ParserException() throw() {}
 public:
     virtual const char *what() const throw();
 

@@ -11,6 +11,7 @@ class SourceBuforException : public exception
 {
 public:
     SourceBuforException(SourceBufor *bufor, string powod);
+    virtual ~SourceBuforException() throw() {}
 
 public:
     virtual const char *what() const throw();
