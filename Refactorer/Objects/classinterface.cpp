@@ -6,16 +6,6 @@ ClassInterface::ClassInterface()
 {
 }
 
-std::string ClassInterface::name() const
-{
-    return _name;
-}
-
-void ClassInterface::setName(const std::string &name)
-{
-    _name = name;
-}
-
 std::string ClassInterface::baseClass() const
 {
     return _baseClass;

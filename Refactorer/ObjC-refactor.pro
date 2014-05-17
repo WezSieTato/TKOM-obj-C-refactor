@@ -21,7 +21,8 @@ SOURCES += main.cpp \
     Parser/parserexpectedstring.cpp \
     Objects/synthesizedvariable.cpp \
     Objects/synthesizeblock.cpp \
-    Objects/classinterface.cpp
+    Objects/classinterface.cpp \
+    Objects/classpart.cpp
 
 HEADERS += \
     Bufor/sourcebufor.h \
@@ -42,5 +43,6 @@ HEADERS += \
     Parser/parserexpectedstring.h \
     Objects/synthesizedvariable.h \
     Objects/synthesizeblock.h \
-    Objects/classinterface.h
+    Objects/classinterface.h \
+    Objects/classpart.h
 

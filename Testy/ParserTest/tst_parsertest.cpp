@@ -332,21 +332,20 @@ void ParserTest::parseClassInterface()
     CREATE_PARSER(par);
     ClassInterface classInterface;
     par >> classInterface;
-    COMPARE_STRING(classInterface.name(), "MyClass");
+    COMPARE_STRING(classInterface.className(), "MyClass");
     COMPARE_STRING(classInterface.baseClass(), "NSObject");
 }
 
 void ParserTest::parseClassInterface_data()
 {
     QTest::addColumn<QString>("data");
+
     QTest::newRow("Pusta") << "@interface MyClass : NSObject @end";
     QTest::newRow("Protocols") << "@interface MyClass : NSObject < DataDelegates, TKOMProject > @end";
     QTest::newRow("{}") << "@interface MyClass : NSObject{} @end";
     QTest::newRow("property") << "@interface MyClass : NSObject{} @property () NSData* data; @end";
     QTest::newRow("method") << "@interface MyClass : NSObject +(NSData*)getDataFromURL:(NSURL*)url andObject:(NSObject*)object; @end";
     QTest::newRow("method i property") << "@interface MyClass : NSObject @property () NSData* data; +(NSData*)getDataFromURL:(NSURL*)url andObject:(NSObject*)object; @end";
-
-
 
 }
 

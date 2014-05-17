@@ -252,7 +252,7 @@ Parser &Parser::operator >>(objc::ClassInterface &classInterface)
     std::string baseClass;
     *this >> baseClass;
 
-    classInterface.setName(className);
+    classInterface.setClassName(className);
     classInterface.setBaseClass(baseClass);
 
     if(isActualChar('<')){
