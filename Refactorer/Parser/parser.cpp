@@ -65,6 +65,9 @@ Parser &Parser::operator >>(objc::VariableDeclaration &varDec)
 
     varDec.setObjectName(object);
 
+    expectedChar(';', "PropertyDeclaration");
+    ++(*_bufor);
+
     setEndPos(varDec);
     return *this;
 }
@@ -89,9 +92,6 @@ Parser &Parser::operator >>(objc::PropertyDeclaration &proDec)
 
    *this >> varDec;
     proDec.setVariableDeclaration(varDec);
-
-    expectedChar(';', "PropertyDeclaration");
-    ++(*_bufor);
 
     setEndPos(proDec);
     return *this;

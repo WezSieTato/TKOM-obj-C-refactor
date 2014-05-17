@@ -122,11 +122,11 @@ void ParserTest::parseVariableDeclaration()
 void ParserTest::parseVariableDeclaration_data()
 {
     QTest::addColumn<QString>("data");
-    NEW_DATA_ROW("NSData*** data");
-    NEW_DATA_ROW("NSData ***data");
-    NEW_DATA_ROW("NSData* * * data");
-    NEW_DATA_ROW("NSData** * data");
-    NEW_DATA_ROW("NSData *** data");
+    NEW_DATA_ROW("NSData*** data;");
+    NEW_DATA_ROW("NSData ***data;");
+    NEW_DATA_ROW("NSData* * * data;");
+    NEW_DATA_ROW("NSData** * data;");
+    NEW_DATA_ROW("NSData *** data;");
 }
 
 void ParserTest::parsePositioning()
@@ -145,9 +145,9 @@ void ParserTest::parsePositioning_data()
     QTest::addColumn<QString>("data");
     QTest::addColumn<int>("start");
     QTest::addColumn<int>("end");
-    QTest::newRow("Bez komentarzy i bialych znakow") << "NSData*** data" << 0 << 14;
-    QTest::newRow("Biale znaki") << "   NSData**  * data" << 3 << 19;
-    QTest::newRow("Komentarze") << "// komentarz1 \n   NSData**/** komentarz 2 */  * data" << 18 << 52;
+    QTest::newRow("Bez komentarzy i bialych znakow") << "NSData*** data;" << 0 << 15;
+    QTest::newRow("Biale znaki") << "   NSData**  * data;" << 3 << 18;
+    QTest::newRow("Komentarze") << "// komentarz1 \n   NSData**/** komentarz 2 */  * data;" << 18 << 53;
 
 }
 
