@@ -22,6 +22,8 @@ public:
     int pos() const;
     void setPos(int pos);
 
+    bool isEnd() const;
+
     SourceBufor& operator++();
     SourceBufor& operator--();
 

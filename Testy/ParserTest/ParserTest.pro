@@ -34,6 +34,7 @@ SOURCES += tst_parsertest.cpp \
     ../../Refactorer/Objects/synthesizedvariable.cpp \
     ../../Refactorer/Objects/classinterface.cpp \
     ../../Refactorer/Objects/classpart.cpp \
-    ../../Refactorer/Objects/classimplementation.cpp
+    ../../Refactorer/Objects/classimplementation.cpp \
+    ../../Refactorer/Files/file.cpp
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"

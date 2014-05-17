@@ -327,6 +327,13 @@ Parser &Parser::operator >>(objc::ClassImplementation &classImplementation)
     return *this;
 }
 
+Parser &Parser::operator >>(objc::File &file)
+{
+//    while (_bufor-) {
+
+//    }
+}
+
 void Parser::setStartPos(objc::CodeObject &object)
 {
     _bufor->getSourceChar();

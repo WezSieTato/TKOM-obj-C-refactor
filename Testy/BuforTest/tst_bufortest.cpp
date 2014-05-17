@@ -2,7 +2,7 @@
 #include <QtTest>
 #include <iostream>
 
-#include "../Refactorer/Bufor/sourcebufor.h"
+#include "../../Refactorer/Bufor/sourcebufor.h"
 
 using namespace std;
 
@@ -34,6 +34,8 @@ private Q_SLOTS:
     void setPos_data();
     void getSourceChar();
     void getSourceChar_data();
+    void isEnd();
+    void isEnd_data();
 
 };
 
@@ -173,6 +175,34 @@ void BuforTest::getSourceChar()
 void BuforTest::getSourceChar_data()
 {
     standardData();
+}
+
+void BuforTest::isEnd()
+{
+    CREATE_BUFOR(stream);
+    QFETCH(int, przesuniecie);
+    QFETCH(bool, startResult);
+    QFETCH(bool, endResult);
+
+    QCOMPARE(stream.isEnd(), startResult);
+    stream.moveBy(przesuniecie);
+    QCOMPARE(stream.isEnd(), endResult);
+
+}
+
+void BuforTest::isEnd_data()
+{
+    QTest::addColumn<QString>("data");
+    QTest::addColumn<int>("przesuniecie");
+    QTest::addColumn<bool>("startResult");
+    QTest::addColumn<bool>("endResult");
+
+    QTest::newRow("") << "" << 0 << true << true ;
+    QTest::newRow("1") << "1" << 1 << false << true ;
+    QTest::newRow("12") << "12" << 1 << false << false ;
+
+
+
 }
 
 QTEST_APPLESS_MAIN(BuforTest)

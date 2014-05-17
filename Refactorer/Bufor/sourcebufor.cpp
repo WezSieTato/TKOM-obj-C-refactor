@@ -94,6 +94,11 @@ void SourceBufor::setPos(int pos)
     _pos = pos;
 }
 
+bool SourceBufor::isEnd() const
+{
+    return _pos == (int)_bufor.length();
+}
+
 SourceBufor &SourceBufor::operator++()
 {
     if(getChar() == '\0')

@@ -3,6 +3,7 @@
 
 #include "../Bufor/sourcebufor.h"
 #include "../Objects/codeobjects.h"
+#include "../Files/file.h"
 #include "parserexpectedchar.h"
 #include "parserexpectedstring.h"
 
@@ -24,8 +25,7 @@ public:
     Parser& operator >> (objc::SynthesizeBlock &block);
     Parser& operator >> (objc::ClassInterface &classInterface);
     Parser& operator >> (objc::ClassImplementation &classImplementation);
-
-
+    Parser& operator >> (objc::File &file);
 
 private:
     void setStartPos(objc::CodeObject& object);
