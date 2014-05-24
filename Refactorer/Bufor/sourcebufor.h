@@ -28,6 +28,8 @@ public:
     SourceBufor& operator--();
 
 
+    string bufor() const;
+
 private:
     string  _bufor;
     int _pos;

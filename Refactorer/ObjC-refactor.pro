@@ -24,7 +24,11 @@ SOURCES += main.cpp \
     Objects/classinterface.cpp \
     Objects/classpart.cpp \
     Objects/classimplementation.cpp \
-    Files/file.cpp
+    Files/file.cpp \
+    Inserter/inserter.cpp \
+    refactorer.cpp \
+    methodrefactorer.cpp \
+    Inserter/descriptioncreator.cpp
 
 HEADERS += \
     Bufor/sourcebufor.h \
@@ -48,5 +52,9 @@ HEADERS += \
     Objects/classinterface.h \
     Objects/classpart.h \
     Objects/classimplementation.h \
-    Files/file.h
+    Files/file.h \
+    Inserter/inserter.h \
+    refactorer.h \
+    methodrefactorer.h \
+    Inserter/descriptioncreator.h
 

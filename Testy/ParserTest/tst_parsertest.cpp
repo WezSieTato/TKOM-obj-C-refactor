@@ -2,8 +2,6 @@
 #include <QtTest>
 
 #include "../../Refactorer/Parser/parser.h"
-#include "../../Refactorer/Objects/codeobjects.h"
-
 #include "../macrostest.h"
 
 #define CREATE_PARSER( par )     QFETCH(QString, data); \

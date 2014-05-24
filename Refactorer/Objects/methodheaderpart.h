@@ -17,9 +17,12 @@ public:
     VariableDeclaration variable() const;
     void setVariable(const VariableDeclaration &variable);
 
+    bool isParameter() const;
+
 private:
     string _methodName;
     VariableDeclaration _variable;
+    bool _isParameter;
 };
 
 }

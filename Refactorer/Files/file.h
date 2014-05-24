@@ -20,6 +20,13 @@ public:
     ClassInterfaceList classInterfaces() const;
     void setClassInterfaces(const ClassInterfaceList &classInterfaces);
 
+    std::string getClassNameAtPosition(unsigned position);
+    std::string getClassNameAtPosition(unsigned startPos, unsigned endPos);
+
+    MethodDeclarationList getMethodDeclarationsAtPosition(unsigned startPos, unsigned endPos);
+//    VariableDeclarationList getVariableDeclarationsAtPosition(unsigned startPos, unsigned endPos);
+
+
 private:
     ClassImplementationList _classImplementations;
     ClassInterfaceList _classInterfaces;

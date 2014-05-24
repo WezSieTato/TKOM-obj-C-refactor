@@ -2,9 +2,11 @@
 
 using namespace objc;
 
-MethodHeaderPart::MethodHeaderPart()
+MethodHeaderPart::MethodHeaderPart() :
+    _isParameter(false)
 {
 }
+
 string MethodHeaderPart::name() const
 {
     return _methodName;
@@ -22,4 +24,15 @@ VariableDeclaration MethodHeaderPart::variable() const
 void MethodHeaderPart::setVariable(const VariableDeclaration &variable)
 {
     _variable = variable;
+    _isParameter = true;
 }
+
+
+bool MethodHeaderPart::isParameter() const
+{
+    return _isParameter;
+}
+
+
+
+

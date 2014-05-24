@@ -114,3 +114,9 @@ SourceBufor &SourceBufor::operator--()
     --_pos;
     return *this;
 }
+
+string SourceBufor::bufor() const
+{
+    return _bufor;
+}
+

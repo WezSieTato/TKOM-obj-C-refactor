@@ -17,6 +17,7 @@
 @property (nonatomic, readonly) UIColor* color;\n\
 @property (nonatomic, readonly) NSString* icon;\n\
 \n\
+\n -(void)doNothing; \
 \n\
 @end"
 

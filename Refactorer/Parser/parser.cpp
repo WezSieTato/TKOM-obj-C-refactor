@@ -120,18 +120,20 @@ Parser &Parser::operator >>(objc::MethodHeaderPart &methPart)
     string name;
     *this >> name;
     methPart.setName(name);
-    expectedChar(':', "MethodHeaderPart");
-    ++(*_bufor);
 
-    objc::VariableType type = methodInType();
+    if(isActualChar(':')){
+        expectedChar(':', "MethodHeaderPart");
+        ++(*_bufor);
 
-    objc::VariableDeclaration variable;
-    variable.setType(type);
-    std::string variableName;
+        objc::VariableType type = methodInType();
 
-    *this >> variableName;
-    variable.setObjectName(variableName);
+        objc::VariableDeclaration variable;
+        variable.setType(type);
+        std::string variableName;
 
+        *this >> variableName;
+        variable.setObjectName(variableName);
+    }
     setEndPos(methPart);
 
     return *this;

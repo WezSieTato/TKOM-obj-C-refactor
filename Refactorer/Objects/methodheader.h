@@ -8,7 +8,7 @@ namespace objc {
 
 typedef std::list< objc::MethodHeaderPart > MethodName;
 
-class MethodHeader : public MethodHeaderPart
+class MethodHeader : public CodeObject
 {
 public:
     MethodHeader();
