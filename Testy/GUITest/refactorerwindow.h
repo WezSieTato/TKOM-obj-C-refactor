@@ -19,6 +19,8 @@ public:
 private slots:
     void on_actionMethodRefactor_triggered();
 
+    void on_actionShowSelection_triggered();
+
 private:
     Ui::RefactorerWindow *ui;
 

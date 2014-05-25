@@ -40,6 +40,8 @@ private:
     void expectedChar(std::string chars, std::string parsedObject);
     void expectedString(std::string expected, std::string parsedObject);
 
+    void ignoreSemicolon();
+
     SourceBufor*_bufor;
 };
 

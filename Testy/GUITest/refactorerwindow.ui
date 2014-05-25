@@ -107,6 +107,7 @@ p, li { white-space: pre-wrap; }
    </attribute>
    <addaction name="actionMethodRefactor"/>
    <addaction name="actionPropertyRefactor"/>
+   <addaction name="actionShowSelection"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionMethodRefactor">
@@ -117,6 +118,11 @@ p, li { white-space: pre-wrap; }
   <action name="actionPropertyRefactor">
    <property name="text">
     <string>PropertyRefactor</string>
+   </property>
+  </action>
+  <action name="actionShowSelection">
+   <property name="text">
+    <string>ShowSelection</string>
    </property>
   </action>
  </widget>

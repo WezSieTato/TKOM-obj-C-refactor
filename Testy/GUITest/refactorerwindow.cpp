@@ -26,13 +26,13 @@ void RefactorerWindow::setSelectionInfo()
 
 void RefactorerWindow::on_actionMethodRefactor_triggered()
 {
-//    setSelectionInfo();
     MethodRefactorer refactorer;
 
     try{
         std::string inter = ui->interfaceText->toPlainText().toStdString();
         std::string impl = ui->interfaceText->toPlainText().toStdString();
-        refactorer(inter, impl, startPos(), endPos());
+        if(!refactorer(inter, impl, startPos(), endPos()))
+            statusBar()->showMessage("Nie przeprowadzono refaktoryzacji błędne zaznaczenie lub refaktoryzacja nie potrzebna");
     } catch (std::exception &e){
         statusBar()->showMessage(QString(e.what()));
     }
@@ -46,4 +46,9 @@ unsigned RefactorerWindow::startPos()
 unsigned RefactorerWindow::endPos()
 {
     return ui->interfaceText->textCursor().selectionEnd();
+}
+
+void RefactorerWindow::on_actionShowSelection_triggered()
+{
+    setSelectionInfo();
 }

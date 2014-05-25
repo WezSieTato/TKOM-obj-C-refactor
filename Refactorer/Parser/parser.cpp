@@ -280,7 +280,7 @@ Parser &Parser::operator >>(objc::ClassInterface &classInterface)
     objc::PropertyDeclarationList propList;
     objc::MethodDeclarationList methList;
 
-
+    ignoreSemicolon();
     while(!isActualString("@end", true)){
         expectedChar("@-+", "ClassInterface");
         if(isActualChar('@')){
@@ -292,6 +292,7 @@ Parser &Parser::operator >>(objc::ClassInterface &classInterface)
             *this >> meth;
             methList.push_back(meth);
         }
+        ignoreSemicolon();
     }
     classInterface.setPropertyDeclarations(propList);
     classInterface.setMethodDeclarations(methList);
@@ -406,4 +407,11 @@ void Parser::expectedString(string expected, string parsedObject)
 {
     if(!isActualString(expected))
         throw ParserExpectedString(_bufor, _bufor->pos(), parsedObject, expected);
+}
+
+void Parser::ignoreSemicolon()
+{
+    while(isActualChar(';', true)){
+        ++(*_bufor);
+    }
 }
