@@ -14,7 +14,6 @@ protected:
     void setUp(std::string &interface, std::string &implementation);
     void cleanUp();
 
-private:
     SourceBufor *_interfaceBufor;
     SourceBufor *_implementationBufor;
 
