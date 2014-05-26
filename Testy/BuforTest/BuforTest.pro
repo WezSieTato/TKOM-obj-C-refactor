@@ -3,9 +3,8 @@
 # Project created by QtCreator 2014-04-03T15:50:51
 #
 #-------------------------------------------------
-
+include(../../Refactorer/ObjC-refactor.pri)
 QT       += testlib
-
 QT       -= gui
 
 TARGET = tst_bufortest
@@ -14,11 +13,7 @@ CONFIG   -= app_bundle
 
 TEMPLATE = app
 
-
-SOURCES += tst_bufortest.cpp \
-            ../../Refactorer/Bufor/sourcebufor.cpp \
-    ../../Refactorer/Bufor/sourcebuforexception.cpp \
-    ../../Refactorer/Bufor/sourcebuforoutofboundsexception.cpp
+SOURCES += tst_bufortest.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 HEADERS +=
