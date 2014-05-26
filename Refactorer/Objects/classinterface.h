@@ -29,7 +29,9 @@ public:
     MethodDeclarationList methodDeclarations() const;
     void setMethodDeclarations(const MethodDeclarationList &methodDeclarations);
 
+    unsigned addPropertyDeclaration(PropertyDeclaration& propertyDeclaration, int size);
 
+    bool isProperty(const VariableDeclaration& variableDeclaration) const;
 
 private:
 

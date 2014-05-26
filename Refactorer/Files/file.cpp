@@ -76,9 +76,9 @@ VariableDeclarationList File::getVariableDeclarationsAtPosition(unsigned startPo
     for(const ClassInterface &impl : _classInterfaces){
         if(impl.startPos() <= (int)startPos && impl.endPos() >= (int)endPos){
             for(const VariableDeclaration &meth : impl.variableDeclarations()){
-                if((meth.startPos() <= (int)startPos && meth.endPos() >=(int) startPos) ||
+                if(((meth.startPos() <= (int)startPos && meth.endPos() >=(int) startPos) ||
                         (meth.startPos() >= (int)startPos && meth.endPos() <= (int)endPos) ||
-                        (meth.startPos() <= (int)endPos && meth.endPos() >= (int)endPos)
+                        (meth.startPos() <= (int)endPos && meth.endPos() >= (int)endPos))
                         && meth.objectName()[0] == '_')
                 {
                     list.push_back(meth);
@@ -99,5 +99,13 @@ ClassImplementation &File::getClassImplementation(string className)
     }
 
 
+}
+
+ClassInterface &File::getClassInterface(string className)
+{
+    for(ClassInterface &impl : _classInterfaces){
+        if(impl.className() == className)
+            return impl;
+    }
 }
 

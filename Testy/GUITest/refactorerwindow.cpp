@@ -2,6 +2,7 @@
 #include "ui_refactorerwindow.h"
 
 #include <methodrefactorer.h>
+#include <propertyrefactorer.h>
 
 RefactorerWindow::RefactorerWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -40,6 +41,7 @@ void RefactorerWindow::refactor(Refactorer &refactorer)
             if (ui->interfaceText->toPlainText().toStdString() != inter)
                 ui->interfaceText->setPlainText(QString(inter.c_str()));
             ui->implementationText->setPlainText(QString(impl.c_str()));
+            statusBar()->showMessage("");
         }
     } catch (std::exception &e){
         statusBar()->showMessage(QString(e.what()));
@@ -49,7 +51,6 @@ void RefactorerWindow::refactor(Refactorer &refactorer)
 void RefactorerWindow::on_actionMethodRefactor_triggered()
 {
     MethodRefactorer refactorer;
-
     refactor(refactorer);
 }
 
@@ -66,4 +67,10 @@ unsigned RefactorerWindow::endPos()
 void RefactorerWindow::on_actionShowSelection_triggered()
 {
     setSelectionInfo();
+}
+
+void RefactorerWindow::on_actionPropertyRefactor_triggered()
+{
+    PropertyRefactorer refactorer;
+    refactor(refactorer);
 }

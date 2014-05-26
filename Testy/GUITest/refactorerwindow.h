@@ -23,6 +23,8 @@ private slots:
 
     void on_actionShowSelection_triggered();
 
+    void on_actionPropertyRefactor_triggered();
+
 private:
     Ui::RefactorerWindow *ui;
 

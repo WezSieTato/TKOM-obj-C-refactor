@@ -21,7 +21,12 @@ public:
     void setMethodDefinitions(const MethodDefinitionList &methodDefinitions);
 
     unsigned addDefinition(MethodDefinition& definition, unsigned size);
+    unsigned putSynthesizedBlock(SynthesizeBlock& block, unsigned size);
+    unsigned addSynthesizedVariable(SynthesizedVariable& synthesizedVariable, unsigned size);
+
     bool isDefinition(const MethodHeader& header) const;
+    bool isSynthesizedVariable(const VariableDeclaration& variable) const;
+    bool isSynthetizeBlock() const;
 
 private:
     SynthesizeBlock _synthesizeBlock;

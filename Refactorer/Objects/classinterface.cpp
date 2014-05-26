@@ -45,3 +45,35 @@ void ClassInterface::setMethodDeclarations(const MethodDeclarationList &methodDe
 {
     _methodDeclarations = methodDeclarations;
 }
+
+unsigned ClassInterface::addPropertyDeclaration(PropertyDeclaration &propertyDeclaration, int size)
+{
+    unsigned pos;
+    if(_propertyDeclarations.size()){
+         pos = _propertyDeclarations.back().endPos();
+    } else if(_methodDeclarations.size()){
+        pos = _methodDeclarations.front().startPos();
+    } else {
+        pos = endPos() - 4;
+    }
+
+    propertyDeclaration.setStartPos(pos);
+    propertyDeclaration.setEndPos(pos +size);
+
+    _propertyDeclarations.push_back(propertyDeclaration);
+
+    return pos;
+}
+
+bool ClassInterface::isProperty(const VariableDeclaration &variableDeclaration) const
+{
+    std::string name(variableDeclaration.objectName());
+    name.erase(0, 1);
+
+    for(const PropertyDeclaration& prop : _propertyDeclarations){
+        if(prop.variableDeclaration().objectName() == name)
+            return true;
+    }
+
+    return false;
+}
