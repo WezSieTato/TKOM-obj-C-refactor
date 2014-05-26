@@ -157,6 +157,7 @@ Parser &Parser::operator >>(objc::MethodHeader &methHead)
     do {
         objc::MethodHeaderPart part;
         *this >> part;
+        head.push_back(part);
     } while (_bufor->getSourceChar() != ';' && _bufor->getSourceChar() != '{');
     methHead.setPartsHeaderList(head);
 
@@ -336,14 +337,14 @@ Parser &Parser::operator >>(objc::File &file)
     objc::ClassInterfaceList intlist;
 
     while (!_bufor->isEnd()) {
-        if(isActualString("@interface", "File")){
+        if(isActualString("@interface", false)){
             objc::ClassInterface inter;
             *this >> inter;
             intlist.push_back(inter);
-        } else if (isActualString("@implementation", "File")){
-            objc::ClassImplementation inter;
-            *this >> inter;
-            implist.push_back(inter);
+        } else if (isActualString("@implementation", false)){
+            objc::ClassImplementation impl;
+            *this >> impl;
+            implist.push_back(impl);
         } else {
             ++(*_bufor);
         }

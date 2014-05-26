@@ -238,6 +238,7 @@ void ParserTest::parseMethodHeader()
     par >> header;
     QTRUE(header.isStatic());
     COMPARE_STRING(header.type().name(), "NSData*");
+    QCOMPARE((int)header.partsHeaderList().size(), 2);
 }
 
 void ParserTest::parseMethodHeader_data()
