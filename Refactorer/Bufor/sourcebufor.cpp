@@ -115,6 +115,19 @@ SourceBufor &SourceBufor::operator--()
     return *this;
 }
 
+void SourceBufor::put(const char &ch)
+{
+    _bufor.insert(_bufor.begin() + _pos, ch);
+    ++_pos;
+}
+
+void SourceBufor::put(const string &str)
+{
+    int size = str.length();
+    _bufor.insert(_pos, str);
+    _pos += size;
+}
+
 string SourceBufor::bufor() const
 {
     return _bufor;

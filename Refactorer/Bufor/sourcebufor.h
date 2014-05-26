@@ -27,6 +27,8 @@ public:
     SourceBufor& operator++();
     SourceBufor& operator--();
 
+    void put(const char &ch);
+    void put(const string &str);
 
     string bufor() const;
 
