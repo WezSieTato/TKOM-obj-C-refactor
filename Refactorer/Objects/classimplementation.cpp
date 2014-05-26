@@ -65,13 +65,13 @@ unsigned ClassImplementation::addSynthesizedVariable(SynthesizedVariable &synthe
 {
     unsigned startPos;
 
-    startPos = _synthesizeBlock.propertyList().back().endPos();
-    startPos += 3;
+    startPos = _synthesizeBlock.propertyList().front().startPos();
+//    startPos += 3;
 
     synthesizedVariable.setStartPos(startPos);
     synthesizedVariable.setEndPos(startPos + size);
 
-    _synthesizeBlock.propertyList().push_back(synthesizedVariable);
+    _synthesizeBlock.propertyList().push_front(synthesizedVariable);
 
     return startPos;
 }

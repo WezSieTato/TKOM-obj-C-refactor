@@ -79,9 +79,9 @@ Inserter &Inserter::operator <<(objc::SynthesizedVariable &synthesizedVariable)
 
     unsigned pos = _file->getClassImplementation(currentClass()).addSynthesizedVariable(synthesizedVariable, des.length());
 
-    _bufor->setPos(pos - 3);
-    _bufor->put(",\n ");
+    _bufor->setPos(pos);
     _bufor->put(des);
+    _bufor->put(",\n ");
 
     return *this;
 }

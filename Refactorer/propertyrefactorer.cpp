@@ -22,6 +22,7 @@ bool PropertyRefactorer::operator ()(string &interface, string &implementation, 
             Inserter implementInserter(_implementationBufor,&_implementationFile);
             implementInserter.setCurrentClass(className);
             list.reverse();
+
             for(objc::VariableDeclaration declaration : list){
 
 
