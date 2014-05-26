@@ -7,7 +7,7 @@
 class Inserter
 {
 public:
-    Inserter(SourceBufor* bufor, objc::File file);
+    Inserter(SourceBufor* bufor, objc::File *file);
 
     Inserter& operator << (objc::MethodDefinition& definition);
     Inserter& operator << (objc::PropertyDeclaration& propertyDeclaration);
@@ -19,7 +19,7 @@ public:
 
 private:
     SourceBufor* _bufor;
-    objc::File _file;
+    objc::File *_file;
     std::string _currentClass;
 };
 

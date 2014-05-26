@@ -17,7 +17,7 @@ bool MethodRefactorer::operator ()(std::string &interface, std::string &implemen
         if(!list.size()){
 
         } else {
-            Inserter ins(_implementationBufor, _implementationFile);
+            Inserter ins(_implementationBufor, &_implementationFile);
             ins.setCurrentClass(className);
 
             list.reverse();

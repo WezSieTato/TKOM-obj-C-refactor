@@ -16,10 +16,10 @@ bool PropertyRefactorer::operator ()(string &interface, string &implementation, 
         if(!list.size()){
 
         } else {
-            Inserter interfaceInserter(_interfaceBufor, _interfaceFile);
+            Inserter interfaceInserter(_interfaceBufor, &_interfaceFile);
             interfaceInserter.setCurrentClass(className);
 
-            Inserter implementInserter(_implementationBufor,_implementationFile);
+            Inserter implementInserter(_implementationBufor,&_implementationFile);
             implementInserter.setCurrentClass(className);
             list.reverse();
             for(objc::VariableDeclaration declaration : list){
