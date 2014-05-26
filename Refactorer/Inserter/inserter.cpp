@@ -10,5 +10,8 @@ Inserter::Inserter(SourceBufor *bufor, objc::File file) :
 
 Inserter &Inserter::operator <<(objc::MethodDefinition &definition)
 {
-
+    DescriptionCreator creator;
+    std::string des;
+    des = creator(definition);
+    _bufor->put(des);
 }

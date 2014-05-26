@@ -52,8 +52,9 @@ string File::getClassNameAtPosition(unsigned startPos, unsigned endPos)
 MethodDeclarationList File::getMethodDeclarationsAtPosition(unsigned startPos, unsigned endPos)
 {
     MethodDeclarationList list;
+//    int size = _classInterfaces.size();
     for(const ClassInterface &impl : _classInterfaces){
-        if(impl.startPos() > (int)startPos && impl.endPos() < (int)endPos){
+        if(impl.startPos() <= (int)startPos && impl.endPos() >= (int)endPos){
             for(const MethodDeclaration &meth : impl.methodDeclarations()){
                 if((meth.startPos() <= (int)startPos && meth.endPos() >=(int) startPos) ||
                         (meth.startPos() >= (int)startPos && meth.endPos() <= (int)endPos) ||

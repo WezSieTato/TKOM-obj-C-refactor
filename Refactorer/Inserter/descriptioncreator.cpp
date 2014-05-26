@@ -47,9 +47,9 @@ string DescriptionCreator::operator ()(const objc::MethodDefinition &definition)
     std::string description;
 
     description += (*this)(definition.header());
-    description += "{\n";
+    description += "\n{";
     description += definition.body();
-    description += '\n';
+    description += "}\n";
 
     return description;
 }

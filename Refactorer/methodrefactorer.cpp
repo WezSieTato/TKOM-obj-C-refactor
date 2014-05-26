@@ -1,7 +1,5 @@
 #include "methodrefactorer.h"
 
-
-
 using namespace objc;
 
 MethodRefactorer::MethodRefactorer()
@@ -21,14 +19,19 @@ bool MethodRefactorer::operator ()(std::string &interface, std::string &implemen
         if(!list.size()){
             success = false;
         } else {
+            Inserter ins(_implementationBufor, _implementationFile);
+
             for(MethodDeclaration& declaration : list){
                 MethodDefinition definition;
+                int size = declaration.header().partsHeaderList().size();
                 definition.setHeader(declaration.header());
                 createBody(definition);
+                ins << definition;
             }
         }
     }
 
+    implementation = _implementationBufor->bufor();
     cleanUp();
     return success;
 }
@@ -40,7 +43,7 @@ void MethodRefactorer::createBody(MethodDefinition &definition)
     body.append("\n");
     if(type != "void") {
         body.append("return ");
-    } else {
+
         if(type == "bool" || type == "BOOL")
             body.append("false");
         else if(type == "int")
