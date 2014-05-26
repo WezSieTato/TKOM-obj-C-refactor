@@ -24,7 +24,7 @@ public:
     std::string getClassNameAtPosition(unsigned startPos, unsigned endPos);
 
     MethodDeclarationList getMethodDeclarationsAtPosition(unsigned startPos, unsigned endPos);
-//    VariableDeclarationList getVariableDeclarationsAtPosition(unsigned startPos, unsigned endPos);
+    VariableDeclarationList getVariableDeclarationsAtPosition(unsigned startPos, unsigned endPos);
 
     ClassImplementation& getClassImplementation(std::string className);
 private:

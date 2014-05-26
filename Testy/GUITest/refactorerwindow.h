@@ -2,6 +2,7 @@
 #define REFACTORERWINDOW_H
 
 #include <QMainWindow>
+#include <refactorer.h>
 
 namespace Ui {
 class RefactorerWindow;
@@ -16,6 +17,7 @@ public:
     ~RefactorerWindow();
 
     void setSelectionInfo();
+    void refactor(Refactorer &refactorer);
 private slots:
     void on_actionMethodRefactor_triggered();
 

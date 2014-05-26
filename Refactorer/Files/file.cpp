@@ -52,13 +52,34 @@ string File::getClassNameAtPosition(unsigned startPos, unsigned endPos)
 MethodDeclarationList File::getMethodDeclarationsAtPosition(unsigned startPos, unsigned endPos)
 {
     MethodDeclarationList list;
-//    int size = _classInterfaces.size();
+
     for(const ClassInterface &impl : _classInterfaces){
         if(impl.startPos() <= (int)startPos && impl.endPos() >= (int)endPos){
             for(const MethodDeclaration &meth : impl.methodDeclarations()){
                 if((meth.startPos() <= (int)startPos && meth.endPos() >=(int) startPos) ||
                         (meth.startPos() >= (int)startPos && meth.endPos() <= (int)endPos) ||
                         (meth.startPos() <= (int)endPos && meth.endPos() >= (int)endPos))
+                {
+                    list.push_back(meth);
+                }
+            }
+            break;
+        }
+    }
+
+    return list;
+}
+
+VariableDeclarationList File::getVariableDeclarationsAtPosition(unsigned startPos, unsigned endPos)
+{
+    VariableDeclarationList list;
+    for(const ClassInterface &impl : _classInterfaces){
+        if(impl.startPos() <= (int)startPos && impl.endPos() >= (int)endPos){
+            for(const VariableDeclaration &meth : impl.variableDeclarations()){
+                if((meth.startPos() <= (int)startPos && meth.endPos() >=(int) startPos) ||
+                        (meth.startPos() >= (int)startPos && meth.endPos() <= (int)endPos) ||
+                        (meth.startPos() <= (int)endPos && meth.endPos() >= (int)endPos)
+                        && meth.objectName()[0] == '_')
                 {
                     list.push_back(meth);
                 }

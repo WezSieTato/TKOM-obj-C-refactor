@@ -28,10 +28,8 @@ void RefactorerWindow::setSelectionInfo()
      statusBar()->showMessage(sel);
 }
 
-void RefactorerWindow::on_actionMethodRefactor_triggered()
+void RefactorerWindow::refactor(Refactorer &refactorer)
 {
-    MethodRefactorer refactorer;
-
     try{
         std::string inter = ui->interfaceText->toPlainText().toStdString();
         std::string impl = ui->implementationText->toPlainText().toStdString();
@@ -46,6 +44,13 @@ void RefactorerWindow::on_actionMethodRefactor_triggered()
     } catch (std::exception &e){
         statusBar()->showMessage(QString(e.what()));
     }
+}
+
+void RefactorerWindow::on_actionMethodRefactor_triggered()
+{
+    MethodRefactorer refactorer;
+
+    refactor(refactorer);
 }
 
 unsigned RefactorerWindow::startPos()

@@ -24,7 +24,8 @@ SOURCES += $$PWD/Bufor/sourcebufor.cpp \
     $$PWD/Inserter/inserter.cpp \
     $$PWD/refactorer.cpp \
     $$PWD/methodrefactorer.cpp \
-    $$PWD/Inserter/descriptioncreator.cpp
+    $$PWD/Inserter/descriptioncreator.cpp \
+    ../../Refactorer/propertyrefactorer.cpp
 
 HEADERS +=  $$PWD/Bufor/sourcebufor.h \
     $$PWD/Parser/parser.h \
@@ -51,5 +52,6 @@ HEADERS +=  $$PWD/Bufor/sourcebufor.h \
     $$PWD/Inserter/inserter.h \
     $$PWD/refactorer.h \
     $$PWD/methodrefactorer.h \
-    $$PWD/Inserter/descriptioncreator.h
+    $$PWD/Inserter/descriptioncreator.h \
+    ../../Refactorer/propertyrefactorer.h
 
