@@ -19,6 +19,8 @@ public:
 
     bool isParameter() const;
 
+    bool operator == (const MethodHeaderPart& other) const;
+
 private:
     string _methodName;
     VariableDeclaration _variable;

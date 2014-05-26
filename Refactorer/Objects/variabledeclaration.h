@@ -16,6 +16,8 @@ public:
     VariableType type() const;
     void setType(const VariableType &type);
 
+    bool operator == (const VariableDeclaration& other) const;
+
 private:
     VariableType _type;
     string _objectName;

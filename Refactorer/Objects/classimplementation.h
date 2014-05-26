@@ -20,7 +20,8 @@ public:
     MethodDefinitionList methodDefinitions() const;
     void setMethodDefinitions(const MethodDefinitionList &methodDefinitions);
 
-//    void addDefinition(MethodDefinition& definition, unsigned size);
+    unsigned addDefinition(MethodDefinition& definition, unsigned size);
+    bool isDefinition(const MethodHeader& header) const;
 
 private:
     SynthesizeBlock _synthesizeBlock;

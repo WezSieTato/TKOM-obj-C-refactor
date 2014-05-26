@@ -29,6 +29,8 @@ public:
     MethodDeclarationList methodDeclarations() const;
     void setMethodDeclarations(const MethodDeclarationList &methodDeclarations);
 
+
+
 private:
 
     std::string _baseClass;

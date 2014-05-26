@@ -58,7 +58,7 @@ MethodDeclarationList File::getMethodDeclarationsAtPosition(unsigned startPos, u
             for(const MethodDeclaration &meth : impl.methodDeclarations()){
                 if((meth.startPos() <= (int)startPos && meth.endPos() >=(int) startPos) ||
                         (meth.startPos() >= (int)startPos && meth.endPos() <= (int)endPos) ||
-                        (meth.endPos() <= (int)startPos && meth.endPos() >= (int)endPos))
+                        (meth.startPos() <= (int)endPos && meth.endPos() >= (int)endPos))
                 {
                     list.push_back(meth);
                 }
@@ -68,5 +68,15 @@ MethodDeclarationList File::getMethodDeclarationsAtPosition(unsigned startPos, u
     }
 
     return list;
+}
+
+ClassImplementation &File::getClassImplementation(string className)
+{
+    for(ClassImplementation &impl : _classImplementations){
+        if(impl.className() == className)
+            return impl;
+    }
+
+
 }
 

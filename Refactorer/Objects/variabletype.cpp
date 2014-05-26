@@ -26,3 +26,8 @@ bool objc::VariableType::isPointer() const
 {
     return starNumber();
 }
+
+bool VariableType::operator ==(const VariableType &other) const
+{
+    return _name == other.name();
+}

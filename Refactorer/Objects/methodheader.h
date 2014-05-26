@@ -22,6 +22,8 @@ public:
     MethodName partsHeaderList() const;
     void setPartsHeaderList(const MethodName &partsHeaderList);
 
+    bool operator == (const MethodHeader& other) const;
+
 private:
     bool _isStatic;
     VariableType _type;

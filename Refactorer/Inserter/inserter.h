@@ -11,6 +11,9 @@ public:
 
     Inserter& operator << (objc::MethodDefinition& definition);
 
+    std::string currentClass() const;
+    void setCurrentClass(const std::string &currentClass);
+
 private:
     SourceBufor* _bufor;
     objc::File _file;

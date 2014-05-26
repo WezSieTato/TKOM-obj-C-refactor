@@ -25,5 +25,10 @@ void VariableDeclaration::setType(const VariableType &type)
     _type = type;
 }
 
+bool VariableDeclaration::operator ==(const VariableDeclaration &other) const
+{
+    return (_objectName == other._objectName && _type == other.type());
+}
+
 
 

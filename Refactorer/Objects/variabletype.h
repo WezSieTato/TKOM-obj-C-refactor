@@ -15,6 +15,8 @@ public:
     unsigned starNumber() const;
     bool isPointer() const;
 
+    bool operator == (const VariableType& other) const;
+
 private:
     string _name;
 };

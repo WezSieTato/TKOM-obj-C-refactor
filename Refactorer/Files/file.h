@@ -26,7 +26,7 @@ public:
     MethodDeclarationList getMethodDeclarationsAtPosition(unsigned startPos, unsigned endPos);
 //    VariableDeclarationList getVariableDeclarationsAtPosition(unsigned startPos, unsigned endPos);
 
-
+    ClassImplementation& getClassImplementation(std::string className);
 private:
     ClassImplementationList _classImplementations;
     ClassInterfaceList _classInterfaces;

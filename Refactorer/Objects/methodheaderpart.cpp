@@ -33,6 +33,11 @@ bool MethodHeaderPart::isParameter() const
     return _isParameter;
 }
 
+bool MethodHeaderPart::operator ==(const MethodHeaderPart &other) const
+{
+    return (_methodName == other._methodName && _variable == other.variable());
+}
+
 
 
 

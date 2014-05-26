@@ -9,24 +9,29 @@ MethodRefactorer::MethodRefactorer()
 bool MethodRefactorer::operator ()(std::string &interface, std::string &implementation, unsigned startPos, unsigned endPos)
 {
     setUp(interface, implementation);
-    bool success = true;
+    bool success = false;
     std::string className = _interfaceFile.getClassNameAtPosition(startPos, endPos);
 
-    if(!className.length()){
-        success = false;
-    } else {
+    if(className.length()) {
         MethodDeclarationList list = _interfaceFile.getMethodDeclarationsAtPosition(startPos, endPos);
         if(!list.size()){
-            success = false;
+
         } else {
             Inserter ins(_implementationBufor, _implementationFile);
+            ins.setCurrentClass(className);
 
+            list.reverse();
             for(MethodDeclaration& declaration : list){
+                if(_implementationFile.getClassImplementation(className).isDefinition(declaration.header())){
+                  continue;
+                }
+
                 MethodDefinition definition;
-                int size = declaration.header().partsHeaderList().size();
                 definition.setHeader(declaration.header());
                 createBody(definition);
                 ins << definition;
+
+                success = true;
             }
         }
     }

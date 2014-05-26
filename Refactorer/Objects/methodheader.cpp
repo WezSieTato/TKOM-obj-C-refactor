@@ -35,3 +35,8 @@ void MethodHeader::setPartsHeaderList(const MethodName &partsHeaderList)
 {
     _partsHeaderList = partsHeaderList;
 }
+
+bool MethodHeader::operator ==(const MethodHeader &other) const
+{
+    return (_type == other.type() && _partsHeaderList == other.partsHeaderList());
+}
