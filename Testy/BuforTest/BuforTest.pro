@@ -15,5 +15,3 @@ TEMPLATE = app
 
 SOURCES += tst_bufortest.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
-
-HEADERS +=
