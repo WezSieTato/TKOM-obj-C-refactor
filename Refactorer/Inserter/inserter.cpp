@@ -51,7 +51,8 @@ Inserter &Inserter::operator <<(objc::PropertyDeclaration &propertyDeclaration)
         }
 
         _bufor->put(des);
-        _bufor->put('\n');
+        if(_bufor->getChar() != '\n')
+            _bufor->put('\n');
 
         return *this;
 }
